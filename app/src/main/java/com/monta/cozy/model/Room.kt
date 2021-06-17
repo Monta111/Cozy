@@ -25,7 +25,7 @@ data class Room(
     var internetCost: Long = 0,
     var features: List<RoomFeature> = emptyList(),
     var imageUrls: List<String> = emptyList(),
-    var isAvailable: Boolean = true,
+    @field:JvmField var isAvailable: Boolean = true,
     @get:Exclude var distanceToCenterLocation: Double = 0.0,
     @get:Exclude var isFavorite: Boolean = false,
 )

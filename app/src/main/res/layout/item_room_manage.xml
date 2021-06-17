@@ -7,7 +7,7 @@
 
         <variable
             name="listener"
-            type="com.monta.cozy.ui.adapter.FavoriteRoomAdapter.OnRoomClickListener" />
+            type="com.monta.cozy.ui.adapter.ManageRoomAdapter.OnRoomClickListener" />
 
         <variable
             name="item"
@@ -45,13 +45,13 @@
                 android:background="@drawable/bg_corner_white_stroke"
                 android:drawablePadding="@dimen/tiny_margin"
                 android:gravity="center"
-                android:onClick="@{() -> listener.onClickDetail(item)}"
+                android:onClick="@{() -> listener.onClickEditRoom(item)}"
                 android:paddingStart="@dimen/normal_margin"
                 android:paddingTop="@dimen/small_margin_secondary"
                 android:paddingEnd="@dimen/normal_margin"
                 android:paddingBottom="@dimen/small_margin_secondary"
-                android:text="@string/detail"
-                app:drawableStartCompat="@drawable/ic_list"
+                android:text="@string/edit_info"
+                app:drawableStartCompat="@drawable/ic_edit"
                 app:drawableTint="@color/blue"
                 app:layout_constraintBottom_toBottomOf="@id/rcv_image"
                 app:layout_constraintEnd_toEndOf="@id/rcv_image" />
@@ -67,7 +67,7 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:text="@{item.name}"
-                app:layout_constraintEnd_toStartOf="@id/iv_save"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/rcv_image"
                 tools:text="487 Hoàng Quốc Việt" />
@@ -162,69 +162,13 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_room_status"
                 tools:text="Số 10 Ngõ 487 Hoàng Quốc Việt, Nghĩa Đô, Cầu Giáy" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_save"
-                style="@style/MaterialIcon"
-                android:onClick="@{() -> listener.onClickBookmark(item)}"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:layout_marginEnd="@dimen/large_margin"
-                android:padding="@dimen/very_tiny_margin"
-                android:src="@drawable/ic_bookmark_fill"
-                android:tint="@color/blue"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tv_room_name"
-                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Circle"
-                app:strokeColor="@color/gray_2"
-                app:strokeWidth="@dimen/stroke_width_small" />
-
-            <TextView
-                android:id="@+id/tv_navigate"
-                style="@style/TextViewSubtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/normal_margin"
-                android:background="@drawable/bg_corner_blue"
-                android:drawablePadding="@dimen/tiny_margin"
-                android:gravity="center"
-                android:onClick="@{() -> listener.onClickNavigate(item)}"
-                android:paddingStart="@dimen/normal_margin"
-                android:paddingTop="@dimen/small_margin_secondary"
-                android:paddingEnd="@dimen/normal_margin"
-                android:paddingBottom="@dimen/small_margin_secondary"
-                android:text="@string/direction"
-                android:textColor="@color/white"
-                app:drawableStartCompat="@drawable/ic_directions"
-                app:drawableTint="@color/white"
-                app:layout_constraintStart_toStartOf="@id/tv_room_name"
-                app:layout_constraintTop_toBottomOf="@id/tv_address" />
-
-            <TextView
-                android:id="@+id/tv_message"
-                style="@style/TextViewSubtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/small_margin"
-                android:background="@drawable/bg_corner_white_stroke"
-                android:drawablePadding="@dimen/tiny_margin"
-                android:gravity="center"
-                android:onClick="@{() -> listener.onClickMessage(item)}"
-                android:paddingStart="@dimen/normal_margin"
-                android:paddingTop="@dimen/small_margin_secondary"
-                android:paddingEnd="@dimen/normal_margin"
-                android:paddingBottom="@dimen/small_margin_secondary"
-                android:text="@string/message"
-                app:drawableStartCompat="@drawable/ic_question_answer"
-                app:drawableTint="@color/blue"
-                app:layout_constraintBottom_toBottomOf="@id/tv_navigate"
-                app:layout_constraintStart_toEndOf="@id/tv_navigate"
-                app:layout_constraintTop_toTopOf="@id/tv_navigate" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/normal_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_navigate" />
+                app:layout_constraintTop_toBottomOf="@id/tv_address" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

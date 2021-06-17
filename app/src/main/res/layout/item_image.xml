@@ -7,9 +7,14 @@
         <variable
             name="item"
             type="com.monta.cozy.model.Image" />
+
+        <variable
+            name="listener"
+            type="com.monta.cozy.ui.adapter.ImageAdapter.OnImageClickListener" />
     </data>
 
     <ImageView
+        android:onClick="@{() -> listener.onImageClick(item.url)}"
         android:id="@+id/iv_image"
         imageUrl="@{item.url}"
         android:layout_width="match_parent"

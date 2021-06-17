@@ -29,6 +29,14 @@ class MessageDetailViewModel @Inject constructor(
 
     private var endTimeMillis = System.currentTimeMillis()
 
+    fun getSenderId() : String? {
+        return senderId
+    }
+
+    fun getReceiverId() : String? {
+        return receiverId
+    }
+
     fun setReceiverId(receiverId: String) {
         this.receiverId = receiverId
 
@@ -110,5 +118,8 @@ class MessageDetailViewModel @Inject constructor(
                     }
             }
         }
+    }
+
+    fun deleteConversation() {
     }
 }

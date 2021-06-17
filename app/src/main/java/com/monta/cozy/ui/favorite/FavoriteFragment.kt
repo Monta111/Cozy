@@ -14,7 +14,6 @@ import com.monta.cozy.databinding.FragmentFavoriteBinding
 import com.monta.cozy.model.Room
 import com.monta.cozy.ui.MainEvent
 import com.monta.cozy.ui.adapter.FavoriteRoomAdapter
-import com.monta.cozy.ui.adapter.RoomAdapter
 import com.monta.cozy.utils.consts.PARTNER_ID_KEY
 import com.monta.cozy.utils.consts.PARTNET_ID_REQUEST_KEY
 import com.monta.cozy.utils.consts.ROOM_DETAIL_REQUEST_KEY
@@ -61,7 +60,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
                         PARTNET_ID_REQUEST_KEY,
                         bundleOf(PARTNER_ID_KEY to room.ownerId)
                     )
-                    shareViewModel.sendEvent(MainEvent.DisplayMessageDetailFragment)
+                    shareViewModel.sendEvent(MainEvent.DisplayMessageDetailScreen)
                 } else {
                     showToast(getString(R.string.please_sign_in))
                     shareViewModel.sendEvent(MainEvent.DisplayAuthenticationScreen)

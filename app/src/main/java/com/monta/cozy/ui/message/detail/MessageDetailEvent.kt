@@ -6,4 +6,6 @@ sealed class MessageDetailEvent : BaseEvent() {
     object UserNotSignIn : MessageDetailEvent()
     object SendMessageSuccess : MessageDetailEvent()
     object SendMessageFailed: MessageDetailEvent()
+    object DeleteConversationSuccess : MessageDetailEvent()
+    object DeleteConversationFailed : MessageDetailEvent()
 }

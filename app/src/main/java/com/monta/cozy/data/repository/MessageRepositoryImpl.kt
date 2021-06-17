@@ -115,7 +115,7 @@ class MessageRepositoryImpl @Inject constructor(private val firestore: FirebaseF
             addConversation(
                 ownerId = message.receiverId,
                 partnerId = message.senderId,
-                isRead = false,
+                isRead = message.senderId == message.receiverId,
                 message = message
             ) { isSuccess ->
                 if (isSuccess) {

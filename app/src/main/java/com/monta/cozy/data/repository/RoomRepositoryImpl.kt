@@ -60,6 +60,52 @@ class RoomRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun updateRoom(imageUriList: List<String>, room: Room): Flow<Boolean> {
+        return callbackFlow {
+            val roomDocumentId = room.id
+            val roomDocumentRef = firestore.collection(ROOM_COLLECTION).document(roomDocumentId)
+            roomDocumentRef.update(
+                mapOf(
+                    "isAvailable" to room.isAvailable,
+                    "roomCategory" to room.roomCategory,
+                    "area" to room.area,
+                    "numberOfRooms" to room.numberOfRooms,
+                    "capacity" to room.capacity,
+                    "gender" to room.gender,
+                    "rentCost" to room.rentCost,
+                    "deposit" to room.deposit,
+                    "timeDeposit" to room.timeDeposit,
+                    "electricCost" to room.electricCost,
+                    "waterCost" to room.waterCost,
+                    "internetCost" to room.internetCost,
+                    "features" to room.features,
+                )
+            )
+                .addOnSuccessListener {
+                    val imagesRef = storage.reference.child(STORAGE_ROOM_IMAGE_PATH)
+                    Timber.e(imageUriList.size.toString())
+                    imageUriList.forEach { uri ->
+                        val imageRef = imagesRef.child(System.nanoTime().toString())
+                        imageRef.putFile(Uri.parse(uri))
+                            .continueWithTask { imageRef.downloadUrl }
+                            .addOnSuccessListener { result ->
+                                roomDocumentRef.update(
+                                    ROOM_IMAGE_URLS_FIELD,
+                                    FieldValue.arrayUnion(result.toString())
+                                )
+                                    .addOnFailureListener { Timber.e(it) }
+                            }
+                            .addOnFailureListener { Timber.e(it) }
+                    }
+
+                    trySend(true)
+                    close()
+                }
+                .addOnFailureListener { close(it) }
+            awaitClose { cancel() }
+        }
+    }
+
     @ExperimentalCoroutinesApi
     override fun searchNearbyRoom(
         query: Map<String, String>,
@@ -251,6 +297,34 @@ class RoomRepositoryImpl @Inject constructor(
                             ratings.add(rating)
                         }
                         trySend(ratings)
+                    }
+                }
+
+            awaitClose {
+                listener.remove()
+                cancel()
+            }
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    override fun getUploadRoom(userId: String): Flow<List<Room>> {
+        return callbackFlow {
+            val listener = firestore.collection(ROOM_COLLECTION)
+                .whereEqualTo("ownerId", userId)
+                .addSnapshotListener { documents, error ->
+                    if (error != null) {
+                        Timber.e(error)
+                        return@addSnapshotListener
+                    }
+
+                    if (documents != null) {
+                        val rooms = mutableListOf<Room>()
+                        documents.forEach {
+                            val room = it.toObject(Room::class.java)
+                            rooms.add(room)
+                        }
+                        trySend(rooms)
                     }
                 }
 

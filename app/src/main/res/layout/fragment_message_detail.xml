@@ -50,6 +50,7 @@
         <ImageView
             android:id="@+id/iv_more"
             style="@style/MaterialIcon"
+            android:visibility="invisible"
             android:background="@drawable/default_circle_ripple"
             android:elevation="@dimen/small_elevation"
             android:scaleType="center"

@@ -129,7 +129,7 @@ class LocationFragment : SpeechRecognitionFragment<FragmentLocationBinding, Loca
                         PARTNET_ID_REQUEST_KEY,
                         bundleOf(PARTNER_ID_KEY to room.ownerId)
                     )
-                    shareViewModel.sendEvent(MainEvent.DisplayMessageDetailFragment)
+                    shareViewModel.sendEvent(MainEvent.DisplayMessageDetailScreen)
                 } else {
                     showToast(getString(R.string.please_sign_in))
                     shareViewModel.sendEvent(MainEvent.DisplayAuthenticationScreen)

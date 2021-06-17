@@ -141,8 +141,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small_margin"
-                android:text="@{item.available ? @string/room_available : @string/room_unavailable}"
-                android:textColor="@{item.available ? @color/green : @color/red}"
+                android:text="@{item.isAvailable ? @string/room_available : @string/room_unavailable}"
+                android:textColor="@{item.isAvailable ? @color/green : @color/red}"
                 app:layout_constraintStart_toStartOf="@id/tv_room_name"
                 app:layout_constraintTop_toBottomOf="@id/tv_room_category" />
 

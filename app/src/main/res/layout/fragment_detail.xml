@@ -117,10 +117,10 @@
                 android:layout_width="0dp"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:textColor="@{viewModel.room.available ? @color/green : @color/red}"
+                android:textColor="@{viewModel.room.isAvailable ? @color/green : @color/red}"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:text="@{viewModel.room.available ? @string/room_available : @string/room_unavailable}"
+                android:text="@{viewModel.room.isAvailable ? @string/room_available : @string/room_unavailable}"
                 app:layout_constraintBottom_toBottomOf="@id/tv_rent_cost"
                 app:layout_constraintStart_toEndOf="@id/tv_dot_2"
                 app:layout_constraintTop_toTopOf="@id/tv_rent_cost" />

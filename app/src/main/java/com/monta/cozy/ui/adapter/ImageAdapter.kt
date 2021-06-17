@@ -37,5 +37,7 @@ class ImageAdapter(val listener: OnImageClickListener) :
         }
     }
 
-    interface OnImageClickListener : OnItemClickListener
+    interface OnImageClickListener : OnItemClickListener {
+        fun onImageClick(imageUrl: String)
+    }
 }

@@ -9,10 +9,14 @@ import com.monta.cozy.ui.authentication.name.NameFragment
 import com.monta.cozy.ui.authentication.password_sign_in.PasswordSignInFragment
 import com.monta.cozy.ui.authentication.password_sign_up.PasswordSignUpFragment
 import com.monta.cozy.ui.authentication.unexpected_error.UnexpectedErrorFragment
+import com.monta.cozy.ui.dialog.PhotoDialog
 import com.monta.cozy.ui.dialog.account.AccountDialog
+import com.monta.cozy.ui.dialog.update_phone_number.UpdatePhoneNumberDialog
+import com.monta.cozy.ui.edit_room.EditRoomFragment
 import com.monta.cozy.ui.favorite.FavoriteFragment
 import com.monta.cozy.ui.favorite.FavoriteViewModel
 import com.monta.cozy.ui.location.LocationFragment
+import com.monta.cozy.ui.manage_room.ManageRoomFragment
 import com.monta.cozy.ui.message.MessageFragment
 import com.monta.cozy.ui.message.detail.MessageDetailFragment
 import com.monta.cozy.ui.post_room.PostRoomFragment
@@ -63,6 +67,12 @@ abstract class FragmentModule {
     abstract fun contributeAccountDialog(): AccountDialog
 
     @ContributesAndroidInjector
+    abstract fun contributeUpdatePhoneNumberDialog(): UpdatePhoneNumberDialog
+
+    @ContributesAndroidInjector
+    abstract fun contributePhotoDialog(): PhotoDialog
+
+    @ContributesAndroidInjector
     abstract fun contributePostRoomFragment(): PostRoomFragment
 
     @ContributesAndroidInjector
@@ -82,4 +92,11 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributeFavoriteFragment(): FavoriteFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeManageRoomFragment(): ManageRoomFragment
+
+
+    @ContributesAndroidInjector
+    abstract fun contributeEditRoomFragment(): EditRoomFragment
 }

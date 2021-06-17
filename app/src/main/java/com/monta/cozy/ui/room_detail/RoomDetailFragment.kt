@@ -1,6 +1,8 @@
 package com.monta.cozy.ui.room_detail
 
 import android.os.Bundle
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +14,7 @@ import com.monta.cozy.databinding.FragmentRoomDetailBinding
 import com.monta.cozy.model.Image
 import com.monta.cozy.ui.adapter.ImageAdapter
 import com.monta.cozy.ui.adapter.RoomDetailPagerAdapter
+import com.monta.cozy.ui.dialog.PhotoDialog
 import com.monta.cozy.utils.consts.ROOM_DETAIL_REQUEST_KEY
 import com.monta.cozy.utils.consts.ROOM_ID_KEY
 import com.monta.cozy.utils.extensions.*
@@ -55,7 +58,12 @@ class RoomDetailFragment : BaseFragment<FragmentRoomDetailBinding, RoomDetailVie
                 }
             }
 
-        binding.rcvImage.adapter = ImageAdapter(object : ImageAdapter.OnImageClickListener {})
+        binding.rcvImage.adapter = ImageAdapter(object : ImageAdapter.OnImageClickListener {
+            override fun onImageClick(imageUrl: String) {
+                setFragmentResult("image", bundleOf("imageUrl" to imageUrl))
+                showDialogFragment(PhotoDialog(), tag = "PhotoDialog")
+            }
+        })
             .also { imageAdapter = it }
 
         binding.pager.adapter = RoomDetailPagerAdapter(childFragmentManager)

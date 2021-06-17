@@ -38,7 +38,7 @@ class MessageFragment : BaseFragment<FragmentMessageBinding, MessageViewModel>()
                     if (user != null) {
                         viewModel.setReadConversation(user.id, conversation.partnerId)
                     }
-                    shareViewModel.sendEvent(MainEvent.DisplayMessageDetailFragment)
+                    shareViewModel.sendEvent(MainEvent.DisplayMessageDetailScreen)
                 }
             }).also { this.conversationAdapter = it }
     }

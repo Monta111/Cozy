@@ -21,4 +21,5 @@ interface UserRepository {
 
     fun fetchUser(userId: String) : Flow<User>
 
+    fun updatePhoneNumber(userId: String, phoneNumber: String) : Flow<Boolean>
 }

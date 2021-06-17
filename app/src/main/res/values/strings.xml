@@ -136,4 +136,9 @@
     <string name="room_available">Còn phòng</string>
     <string name="room_unavailable">Hết phòng</string>
     <string name="saved_room">Phòng đã lưu</string>
+    <string name="Update_your_phone">Cập nhật số điện thoại của bạn</string>
+    <string name="phone_number">Số điện thoại</string>
+    <string name="update">Cập nhật</string>
+    <string name="list_uploaded_room">Danh sách phòng trọ đã đăng</string>
+    <string name="edit_info">Sửa thông tin</string>
 </resources>

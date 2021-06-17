@@ -67,7 +67,11 @@ class FavoriteRoomAdapter(val listener: OnRoomClickListener) : BaseAdapter<
 
         val imageUrls = differ.currentList[position].imageUrls
 
-        val adapter = ImageAdapter(object : ImageAdapter.OnImageClickListener {})
+        val adapter = ImageAdapter(object : ImageAdapter.OnImageClickListener {
+            override fun onImageClick(imageUrl: String) {
+
+            }
+        })
         holder.binding.rcvImage.adapter = adapter
         adapter.submitList(imageUrls.map { Image(it) })
 

@@ -53,9 +53,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/normal_margin"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_avatar"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_avatar" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_avatar"
@@ -137,10 +137,10 @@
             android:id="@+id/ll_account_expanded"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/normal_margin"
             android:background="?android:attr/selectableItemBackground"
             android:onClick="@{() -> listener.signOut()}"
             android:orientation="horizontal"
+            android:paddingStart="@dimen/normal_margin"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="@id/tv_email"
             app:layout_constraintTop_toTopOf="@id/divider_child">
@@ -197,6 +197,7 @@
             android:layout_height="0dp"
             android:background="?android:attr/selectableItemBackground"
             android:onClick="@{() -> listener.displayAuthenticationScreen()}"
+            android:visibility="@{shareViewModel.signedIn ? View.GONE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="@id/iv_add_account"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -214,7 +215,7 @@
             android:id="@+id/iv_profile"
             style="@style/MaterialIcon"
             android:layout_marginStart="@dimen/normal_margin"
-            android:src="@drawable/ic_person"
+            android:src="@drawable/ic_call"
             android:visibility="@{shareViewModel.signedIn ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider_1" />
@@ -226,7 +227,7 @@
             android:layout_height="0dp"
             android:gravity="center_vertical"
             android:paddingStart="@dimen/normal_margin"
-            android:text="@string/your_profile"
+            android:text="@string/Update_your_phone"
             android:visibility="@{shareViewModel.signedIn ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@id/iv_profile"
             app:layout_constraintEnd_toEndOf="parent"
@@ -234,9 +235,12 @@
             app:layout_constraintTop_toTopOf="@id/iv_profile" />
 
         <View
+            android:id="@+id/v_update_phone_number"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="?android:attr/selectableItemBackground"
+            android:onClick="@{() -> listener.showUpdatePhoneNumberDialog()}"
+            android:visibility="@{shareViewModel.signedIn ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@id/iv_profile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -251,42 +255,13 @@
             app:layout_constraintTop_toBottomOf="@id/iv_profile" />
 
         <ImageView
-            android:id="@+id/iv_setting"
-            style="@style/MaterialIcon"
-            android:layout_marginStart="@dimen/normal_margin"
-            android:src="@drawable/ic_settings"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider_2" />
-
-        <TextView
-            android:id="@+id/tv_setting"
-            style="@style/TextView.Bold"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="center_vertical"
-            android:paddingStart="@dimen/normal_margin"
-            android:text="@string/setting"
-            app:layout_constraintBottom_toBottomOf="@id/iv_setting"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/iv_setting"
-            app:layout_constraintTop_toTopOf="@id/iv_setting" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="?android:attr/selectableItemBackground"
-            app:layout_constraintBottom_toBottomOf="@id/iv_setting"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_setting" />
-
-        <ImageView
             android:id="@+id/iv_help"
             style="@style/MaterialIcon"
             android:layout_marginStart="@dimen/normal_margin"
-            android:src="@drawable/ic_help"
+            android:src="@drawable/ic_house"
+            android:visibility="@{shareViewModel.signedIn ? View.VISIBLE : View.GONE}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_setting" />
+            app:layout_constraintTop_toBottomOf="@id/divider_2" />
 
         <TextView
             android:id="@+id/tv_help"
@@ -295,16 +270,19 @@
             android:layout_height="0dp"
             android:gravity="center_vertical"
             android:paddingStart="@dimen/normal_margin"
-            android:text="@string/help_and_feedback"
+            android:text="@string/list_uploaded_room"
+            android:visibility="@{shareViewModel.signedIn ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@id/iv_help"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_help"
             app:layout_constraintTop_toTopOf="@id/iv_help" />
 
         <View
+            android:onClick="@{() -> listener.displayManageRoomScreen()}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="?android:attr/selectableItemBackground"
+            android:visibility="@{shareViewModel.signedIn ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@id/iv_help"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

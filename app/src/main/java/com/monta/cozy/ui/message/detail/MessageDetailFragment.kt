@@ -1,11 +1,14 @@
 package com.monta.cozy.ui.message.detail
 
 import android.os.Bundle
+import android.widget.PopupMenu
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.monta.cozy.R
 import com.monta.cozy.base.BaseFragment
 import com.monta.cozy.base.observeInLifecycle
@@ -17,6 +20,7 @@ import com.monta.cozy.utils.consts.PARTNER_ID_KEY
 import com.monta.cozy.utils.consts.PARTNET_ID_REQUEST_KEY
 import com.monta.cozy.utils.extensions.*
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 class MessageDetailFragment : BaseFragment<FragmentMessageDetailBinding, MessageDetailViewModel>() {
 

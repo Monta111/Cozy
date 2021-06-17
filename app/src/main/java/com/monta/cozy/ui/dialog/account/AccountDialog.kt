@@ -3,8 +3,10 @@ package com.monta.cozy.ui.dialog.account
 import android.view.View
 import com.monta.cozy.R
 import com.monta.cozy.base.BaseDialogFragment
+import com.monta.cozy.base.BaseFragment
 import com.monta.cozy.databinding.DialogAccountBinding
 import com.monta.cozy.ui.MainEvent
+import com.monta.cozy.ui.dialog.update_phone_number.UpdatePhoneNumberDialog
 import com.monta.cozy.utils.consts.ANIMATION_DURATION
 import com.monta.cozy.utils.extensions.animateGone
 import com.monta.cozy.utils.extensions.animateVisible
@@ -40,6 +42,12 @@ class AccountDialog : BaseDialogFragment<DialogAccountBinding>() {
         }
     }
 
+    fun showUpdatePhoneNumberDialog() {
+        (parentFragment as? BaseFragment<*, *>)?.showDialogFragment(
+            UpdatePhoneNumberDialog(), tag = UpdatePhoneNumberDialog.TAG
+        )
+    }
+
     fun signOut() {
         dismiss()
         shareViewModel.sendEvent(MainEvent.SignOut)
@@ -48,5 +56,10 @@ class AccountDialog : BaseDialogFragment<DialogAccountBinding>() {
     fun displayAuthenticationScreen() {
         dismiss()
         shareViewModel.sendEvent(MainEvent.DisplayAuthenticationScreen)
+    }
+
+    fun displayManageRoomScreen() {
+        dismiss()
+        shareViewModel.sendEvent(MainEvent.DisplayManageRoomScreen)
     }
 }

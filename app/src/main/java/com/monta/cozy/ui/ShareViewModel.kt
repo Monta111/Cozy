@@ -21,7 +21,7 @@ class ShareViewModel @Inject constructor(private val userRepository: UserReposit
     private var _user = MutableLiveData<User>()
     val user: LiveData<User> = _user
 
-    fun isSignedIn() :Boolean {
+    fun isSignedIn(): Boolean {
         return userRepository.isSignedIn()
     }
 
@@ -41,6 +41,24 @@ class ShareViewModel @Inject constructor(private val userRepository: UserReposit
 
     fun signOut() {
         userRepository.signOut()
+    }
+
+    fun updatePhoneNumber(phoneNumber: String, listener: (Boolean) -> Unit) {
+        if (isSignedIn()) {
+            val user = _user.value
+            if (user != null) {
+                viewModelScope.launch {
+                    userRepository.updatePhoneNumber(user.id, phoneNumber)
+                        .catch {
+                            listener(false)
+                            Timber.e(it)
+                        }
+                        .collect {
+                            listener(true)
+                        }
+                }
+            }
+        }
     }
 
     private fun fetchUser() {

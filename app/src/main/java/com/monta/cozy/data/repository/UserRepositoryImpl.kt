@@ -172,20 +172,37 @@ class UserRepositoryImpl @Inject constructor(
     @ExperimentalCoroutinesApi
     override fun fetchUser(userId: String): Flow<User> {
         return callbackFlow {
-          firestore.collection(USER_COLLECTION).document(userId)
-              .get()
-              .addOnSuccessListener { snapshot ->
-                  if (snapshot != null && snapshot.exists()) {
-                      snapshot.toObject(User::class.java)?.let { trySend(it) }
-                      close()
-                  }
-              }
-              .addOnFailureListener { e ->
-                  close(e)
-              }
+            firestore.collection(USER_COLLECTION).document(userId)
+                .get()
+                .addOnSuccessListener { snapshot ->
+                    if (snapshot != null && snapshot.exists()) {
+                        snapshot.toObject(User::class.java)?.let { trySend(it) }
+                        close()
+                    }
+                }
+                .addOnFailureListener { e ->
+                    close(e)
+                }
             awaitClose {
                 cancel()
             }
+        }
+    }
+
+    @ExperimentalCoroutinesApi
+    override fun updatePhoneNumber(userId: String, phoneNumber: String): Flow<Boolean> {
+        return callbackFlow {
+            firestore.collection(USER_COLLECTION)
+                .document(userId)
+                .update(mapOf("phoneNumber" to phoneNumber))
+                .addOnSuccessListener {
+                    trySend(true)
+                    close()
+                }
+                .addOnFailureListener {
+                    close(it)
+                }
+            awaitClose { cancel() }
         }
     }
 }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.activityViewModels
@@ -57,6 +58,10 @@ abstract class BaseDialogFragment<B : ViewDataBinding> : DaggerDialogFragment() 
             setVariable(BR.listener, this@BaseDialogFragment)
             executePendingBindings()
         }
+    }
+
+    fun showToast(s : String) {
+        activity?.let { Toast.makeText(it, s, Toast.LENGTH_SHORT).show() }
     }
 
     override fun onResume() {

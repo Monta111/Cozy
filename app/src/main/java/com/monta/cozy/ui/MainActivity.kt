@@ -12,8 +12,10 @@ import com.monta.cozy.base.BaseActivity
 import com.monta.cozy.base.observeInLifecycle
 import com.monta.cozy.databinding.ActivityMainBinding
 import com.monta.cozy.ui.authentication.AuthenticationFragment
+import com.monta.cozy.ui.edit_room.EditRoomFragment
 import com.monta.cozy.ui.favorite.FavoriteFragment
 import com.monta.cozy.ui.location.LocationFragment
+import com.monta.cozy.ui.manage_room.ManageRoomFragment
 import com.monta.cozy.ui.message.MessageFragment
 import com.monta.cozy.ui.message.detail.MessageDetailFragment
 import com.monta.cozy.ui.post_room.PostRoomFragment
@@ -143,7 +145,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                     MainEvent.SignOut -> signOut()
                     MainEvent.DisplayExploreScreen -> displayExploreScreen()
                     MainEvent.DisplayRoomDetailScreen -> displayRoomDetailFragment()
-                    MainEvent.DisplayMessageDetailFragment -> displayMessageDetailFragment()
+                    MainEvent.DisplayMessageDetailScreen -> displayMessageDetailFragment()
+                    MainEvent.DisplayManageRoomScreen -> displayManageRoomFragment()
+                    MainEvent.DisplayEditRoomScreen -> displayEditRoomFragment()
                 }
             }
             .observeInLifecycle(this)
@@ -204,6 +208,22 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             R.id.nav_host_fragment,
             MessageDetailFragment(),
             tag = MessageDetailFragment.TAG
+        )
+    }
+
+    private fun displayManageRoomFragment() {
+        addFragment(
+            R.id.nav_host_fragment,
+            ManageRoomFragment(),
+            tag = ManageRoomFragment.TAG
+        )
+    }
+
+    private fun displayEditRoomFragment() {
+        addFragment(
+            R.id.nav_host_fragment,
+            EditRoomFragment(),
+            tag = EditRoomFragment.TAG
         )
     }
 

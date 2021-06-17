@@ -10,20 +10,19 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.monta.cozy.R
 import com.monta.cozy.base.BaseAdapter
-import com.monta.cozy.databinding.ItemRoomBinding
+import com.monta.cozy.databinding.ItemRoomFavoriteBinding
+import com.monta.cozy.databinding.ItemRoomManageBinding
 import com.monta.cozy.model.Image
 import com.monta.cozy.model.Rating
 import com.monta.cozy.model.Room
-import timber.log.Timber
 
-
-class RoomAdapter(val listener: OnRoomClickListener) : BaseAdapter<
+class ManageRoomAdapter(val listener: OnRoomClickListener) : BaseAdapter<
         Room,
-        ItemRoomBinding,
-        RoomAdapter.OnRoomClickListener>(listener) {
+        ItemRoomManageBinding,
+        ManageRoomAdapter.OnRoomClickListener>(listener) {
 
     override val layoutItemRes: Int
-        get() = R.layout.item_room
+        get() = R.layout.item_room_manage
 
     override val differ = AsyncListDiffer(this, object : DiffUtil.ItemCallback<Room>() {
         override fun areItemsTheSame(oldItem: Room, newItem: Room): Boolean {
@@ -35,7 +34,7 @@ class RoomAdapter(val listener: OnRoomClickListener) : BaseAdapter<
         }
     })
 
-    override fun setupViewHolder(binding: ItemRoomBinding) {
+    override fun setupViewHolder(binding: ItemRoomManageBinding) {
         super.setupViewHolder(binding)
 
         val scrollTouchListener: OnItemTouchListener = object : OnItemTouchListener {
@@ -63,7 +62,7 @@ class RoomAdapter(val listener: OnRoomClickListener) : BaseAdapter<
             }
     }
 
-    override fun onBindViewHolder(holder: BaseViewHolder<ItemRoomBinding>, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder<ItemRoomManageBinding>, position: Int) {
         super.onBindViewHolder(holder, position)
 
         val imageUrls = differ.currentList[position].imageUrls
@@ -118,12 +117,6 @@ class RoomAdapter(val listener: OnRoomClickListener) : BaseAdapter<
     }
 
     interface OnRoomClickListener : OnItemClickListener {
-        fun onClickNavigate(room: Room)
-
-        fun onClickDetail(room: Room)
-
-        fun onClickMessage(room: Room)
-
-        fun onClickBookmark(room: Room)
+        fun onClickEditRoom(room: Room)
     }
 }

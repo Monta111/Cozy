@@ -7,6 +7,8 @@ sealed class MainEvent : BaseEvent() {
     object DisplaySearchScreen : MainEvent()
     object DisplayRoomDetailScreen : MainEvent()
     object DisplayAuthenticationScreen : MainEvent()
-    object DisplayMessageDetailFragment : MainEvent()
+    object DisplayMessageDetailScreen : MainEvent()
+    object DisplayManageRoomScreen : MainEvent()
+    object DisplayEditRoomScreen : MainEvent()
     object SignOut : MainEvent()
 }

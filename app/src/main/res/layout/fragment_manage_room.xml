@@ -4,11 +4,9 @@
 
     <data>
 
-        <import type="android.view.View" />
-
         <variable
             name="listener"
-            type="com.monta.cozy.ui.message.MessageFragment" />
+            type="com.monta.cozy.ui.manage_room.ManageRoomFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +17,7 @@
         <TextView
             android:id="@+id/tv_title"
             style="@style/TextViewTitle"
-            android:text="@string/inbox"
+            android:text="Phòng đã đăng"
             android:layout_width="0dp"
             android:layout_height="?android:attr/actionBarSize"
             android:background="@color/white"
@@ -32,29 +30,19 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:onClick="@{() -> listener.onBackPressed()}"
             android:id="@+id/iv_back"
             style="@style/MaterialIcon"
             android:background="@drawable/default_circle_ripple"
             android:elevation="@dimen/small_margin"
-            android:onClick="@{() -> listener.onBackPressed()}"
             android:src="@drawable/ic_back"
             app:layout_constraintBottom_toBottomOf="@id/tv_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_title" />
 
-<!--        <ImageView-->
-<!--            android:id="@+id/iv_more"-->
-<!--            style="@style/MaterialIcon"-->
-<!--            android:background="@drawable/default_circle_ripple"-->
-<!--            android:elevation="@dimen/small_elevation"-->
-<!--            android:scaleType="center"-->
-<!--            android:src="@drawable/ic_more"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/tv_title"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="@id/tv_title" />-->
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_conversation"
+            android:id="@+id/rcv_upload_room"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/tiny_margin"

@@ -15,11 +15,13 @@ import com.monta.cozy.databinding.FragmentDetailBinding
 import com.monta.cozy.enumclass.RoomFeature
 import com.monta.cozy.model.Feature
 import com.monta.cozy.model.Rating
+import com.monta.cozy.model.User
 import com.monta.cozy.ui.MainEvent
 import com.monta.cozy.ui.adapter.RoomFeatureAdapter
 import com.monta.cozy.ui.room_detail.RoomDetailViewModel
 import com.monta.cozy.utils.consts.PARTNER_ID_KEY
 import com.monta.cozy.utils.consts.PARTNET_ID_REQUEST_KEY
+import com.monta.cozy.utils.consts.USER_COLLECTION
 import timber.log.Timber
 
 class DetailFragment : BaseFragment<FragmentDetailBinding, DetailViewModel>() {
@@ -129,7 +131,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, DetailViewModel>() {
                     PARTNET_ID_REQUEST_KEY,
                     bundleOf(PARTNER_ID_KEY to room.ownerId)
                 )
-                shareViewModel.sendEvent(MainEvent.DisplayMessageDetailFragment)
+                shareViewModel.sendEvent(MainEvent.DisplayMessageDetailScreen)
             }
         } else {
             showToast(getString(R.string.please_sign_in))
@@ -138,6 +140,30 @@ class DetailFragment : BaseFragment<FragmentDetailBinding, DetailViewModel>() {
     }
 
     fun call() {
+        val room = viewModel.room.value
+        if (room != null) {
+            Firebase.firestore.collection(USER_COLLECTION)
+                .document(room.ownerId)
+                .get()
+                .addOnSuccessListener {
+                    if(it != null && it.exists()) {
+                        val user = it.toObject(User::class.java)
+                        if(user != null) {
+                            if(user.phoneNumber.isNotBlank()) {
+                                val intent = Intent(Intent.ACTION_DIAL)
+                                intent.data = Uri.parse("tel:${user.phoneNumber}")
+                                startActivity(intent)
+                            } else {
+                                showToast(getString(R.string.not_provide_phone_number))
+                            }
+                        }
+                    }
+
+                }
+                .addOnFailureListener {
+                    showToast(getString(R.string.something_wrong))
+                }
+        }
 
     }
 

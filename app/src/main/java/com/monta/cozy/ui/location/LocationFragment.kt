@@ -35,6 +35,7 @@ import com.monta.cozy.ui.MainEvent
 import com.monta.cozy.ui.adapter.RoomAdapter
 import com.monta.cozy.ui.adapter.RoomCategoryAdapter
 import com.monta.cozy.ui.dialog.account.AccountDialog
+import com.monta.cozy.ui.dialog.filter_rent_cost.FilterRentCostDialog
 import com.monta.cozy.utils.consts.*
 import com.monta.cozy.utils.extensions.*
 import kotlinx.coroutines.launch
@@ -83,11 +84,17 @@ class LocationFragment : SpeechRecognitionFragment<FragmentLocationBinding, Loca
                 val rooms = roomAdapter?.getList()
                 val copyList = rooms?.map { it.copy() }?.toMutableList() ?: mutableListOf()
                 copyList.forEach {
-                    if(it.id == roomId) {
+                    if (it.id == roomId) {
                         it.isFavorite = !it.isFavorite
                     }
                 }
                 roomAdapter?.submitList(copyList)
+            }
+        }
+        setFragmentResultListener("MaxRentCost") { _, result ->
+            val maxRentCost = result.getLong("cost")
+            if (maxRentCost > 0) {
+                viewModel.maxRentCost = maxRentCost
             }
         }
     }
@@ -421,6 +428,15 @@ class LocationFragment : SpeechRecognitionFragment<FragmentLocationBinding, Loca
 
     fun displayAccountDialog() {
         showDialogFragment(AccountDialog(), tag = AccountDialog.TAG)
+    }
+
+    fun displayFilterDialog() {
+        val currentMaxCost = viewModel.maxRentCost
+        showDialogFragment(
+            FilterRentCostDialog(),
+            args = bundleOf("currentMaxCost" to currentMaxCost),
+            tag = FilterRentCostDialog.TAG
+        )
     }
 
     override fun onStart() {

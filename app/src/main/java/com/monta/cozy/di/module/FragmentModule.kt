@@ -11,6 +11,7 @@ import com.monta.cozy.ui.authentication.password_sign_up.PasswordSignUpFragment
 import com.monta.cozy.ui.authentication.unexpected_error.UnexpectedErrorFragment
 import com.monta.cozy.ui.dialog.PhotoDialog
 import com.monta.cozy.ui.dialog.account.AccountDialog
+import com.monta.cozy.ui.dialog.filter_rent_cost.FilterRentCostDialog
 import com.monta.cozy.ui.dialog.update_phone_number.UpdatePhoneNumberDialog
 import com.monta.cozy.ui.edit_room.EditRoomFragment
 import com.monta.cozy.ui.favorite.FavoriteFragment
@@ -71,6 +72,9 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributePhotoDialog(): PhotoDialog
+
+    @ContributesAndroidInjector
+    abstract fun contributeFilterRentCostDialog(): FilterRentCostDialog
 
     @ContributesAndroidInjector
     abstract fun contributePostRoomFragment(): PostRoomFragment

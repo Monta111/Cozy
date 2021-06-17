@@ -49,6 +49,9 @@ class LocationViewModel @Inject constructor(
 
     val favoriteRoomIds = mutableListOf<String>()
 
+    var maxRentCost : Long = 5000000L
+    var minRentCost: Long = 0L
+
     init {
         var config = cacheRepository.getMapConfig()
         if (config == null) {
@@ -138,7 +141,13 @@ class LocationViewModel @Inject constructor(
                             room.isFavorite = true
                         }
                     }
-                    _roomNearbyList.value = it
+                    _roomNearbyList.value = it.filter { room ->
+                        if(maxRentCost == 10_000_000L) {
+                            room.rentCost > 9_000_000L
+                        } else {
+                            room.rentCost <= maxRentCost
+                        }
+                    }
                 }
         }
     }

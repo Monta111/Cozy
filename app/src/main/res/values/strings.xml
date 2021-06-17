@@ -141,4 +141,5 @@
     <string name="update">Cập nhật</string>
     <string name="list_uploaded_room">Danh sách phòng trọ đã đăng</string>
     <string name="edit_info">Sửa thông tin</string>
+    <string name="apply">Áp dụng</string>
 </resources>

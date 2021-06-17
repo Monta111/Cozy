@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+       <variable
+           name="listener"
+           type="com.monta.cozy.ui.dialog.filter_rent_cost.FilterRentCostDialog" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_dialog">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            style="@style/MaterialIcon"
+            android:onClick="@{() -> listener.dismiss()}"
+            android:src="@drawable/ic_close"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_app_name"
+            style="@style/TextViewAppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/iv_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_close" />
+
+        <View
+            android:id="@+id/divider"
+            style="@style/Divider.Horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_close" />
+
+        <TextView
+            android:id="@+id/tv_description"
+            style="@style/TextViewBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:gravity="center"
+            android:text="Giá thuê phòng"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
+
+        <com.google.android.material.slider.Slider
+            android:layout_width="0dp"
+            android:id="@+id/slider"
+            android:valueFrom="10.0"
+            android:stepSize="10.0"
+            android:valueTo="100.0"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_description"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_cost"
+            android:text="Dưới 5 triệu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/slider"
+            android:layout_marginTop="@dimen/small_margin"
+            style="@style/TextViewBody"/>
+
+        <Button
+            android:id="@+id/btn_apply"
+            android:text="@string/apply"
+            android:textAllCaps="false"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_cost"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/small_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_apply"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

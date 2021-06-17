@@ -144,6 +144,7 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_filter"
+            android:onClick="@{() -> listener.displayFilterDialog()}"
             style="@style/MaterialIcon.Medium"
             android:layout_marginTop="@dimen/normal_margin"
             android:layout_marginEnd="@dimen/normal_margin"

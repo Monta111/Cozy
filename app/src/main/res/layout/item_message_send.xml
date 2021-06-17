@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:paddingTop="@dimen/small_margin"
+        android:paddingBottom="@dimen/small_margin"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:gravity="end|center_vertical"
+            android:id="@+id/ll_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:layout_marginStart="@dimen/large_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_message"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:textColor="@color/blue"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_corner_blue_light"
+                android:gravity="center_vertical"
+                android:minHeight="48dp"
+                android:paddingStart="@dimen/normal_margin"
+                android:paddingTop="@dimen/small_margin"
+                android:paddingEnd="@dimen/normal_margin"
+                android:paddingBottom="@dimen/small_margin"
+                tools:text="a" />
+
+        </LinearLayout>
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/very_tiny_margin"
+            app:layout_constraintEnd_toEndOf="@id/ll_message"
+            app:layout_constraintTop_toBottomOf="@id/ll_message"
+            tools:text="12:23, 28/04" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="com.monta.cozy.ui.authentication.email_sign_in.EmailSignInFragment" />
+
+        <variable
+            name="viewModel"
+            type="com.monta.cozy.ui.authentication.email_sign_in.EmailSignInViewModel" />
+
+        <variable
+            name="authenticationViewModel"
+            type="com.monta.cozy.ui.authentication.AuthenticationViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_create_account"
+            style="@style/TextViewHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:text="@string/sign_in"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_enter_your_name"
+            style="@style/TextViewBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:text="@string/use_your_cozy_account"
+            app:layout_constraintEnd_toEndOf="@id/tv_create_account"
+            app:layout_constraintStart_toStartOf="@id/tv_create_account"
+            app:layout_constraintTop_toBottomOf="@id/tv_create_account" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_email"
+            style="@style/OutlineTextInputLayout"
+            disableHelper="@{true}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/large_margin"
+            android:layout_marginTop="@dimen/medium_margin"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:hint="@string/email"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_enter_your_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="@{!authenticationViewModel.isLoading()}"
+                android:imeOptions="actionDone"
+                android:inputType="textEmailAddress"
+                android:text="@={authenticationViewModel.email}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_error"
+            style="@style/ErrorTextView"
+            error="@{viewModel.emailError}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/tiny_margin"
+            app:layout_constraintEnd_toEndOf="@id/til_email"
+            app:layout_constraintStart_toStartOf="@id/til_email"
+            app:layout_constraintTop_toBottomOf="@id/til_email" />
+
+        <Button
+            android:onClick="@{() -> listener.displaySignUpScreen()}"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/extreme_margin"
+            android:enabled="@{!authenticationViewModel.isLoading()}"
+            android:text="@string/create_account_cozy"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/normal_margin_secondary"
+            app:layout_constraintTop_toBottomOf="@id/tv_error" />
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:layout_marginBottom="@dimen/normal_margin"
+            android:enabled="@{!authenticationViewModel.isLoading()}"
+            android:onClick="@{() -> listener.validateEmail()}"
+            android:text="@string/next"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

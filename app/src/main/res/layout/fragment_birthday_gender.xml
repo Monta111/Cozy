@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="com.monta.cozy.ui.authentication.birthday_gender.BirthdayGenderFragment" />
+
+        <variable
+            name="authenticationViewModel"
+            type="com.monta.cozy.ui.authentication.AuthenticationViewModel" />
+
+        <variable
+            name="viewModel"
+            type="com.monta.cozy.ui.authentication.birthday_gender.BirthdayGenderViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tv_create_account"
+            style="@style/TextViewHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:text="@string/basic_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_enter_your_name"
+            style="@style/TextViewBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:text="@string/enter_your_birthday_and_gender"
+            app:layout_constraintEnd_toEndOf="@id/tv_create_account"
+            app:layout_constraintStart_toStartOf="@id/tv_create_account"
+            app:layout_constraintTop_toBottomOf="@id/tv_create_account" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_day"
+            style="@style/OutlineTextInputLayout"
+            disableHelper="@{true}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/large_margin"
+            android:layout_marginTop="@dimen/large_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:hint="@string/day"
+            app:layout_constraintEnd_toStartOf="@id/til_month"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_enter_your_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_day"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="@{!authenticationViewModel.isLoading()}"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:maxLength="2"
+                android:text="@={authenticationViewModel.day}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_month"
+            style="@style/OutlineTextInputLayout"
+            disableHelper="@{true}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:hint="@string/month"
+            app:endIconMode="dropdown_menu"
+            app:layout_constraintEnd_toStartOf="@id/til_year"
+            app:layout_constraintStart_toEndOf="@id/til_day"
+            app:layout_constraintTop_toBottomOf="@id/tv_enter_your_name">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/actv_month"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_height"
+                android:drawablePadding="0dp"
+                android:enabled="@{!authenticationViewModel.isLoading()}"
+                android:focusable="false"
+                android:imeOptions="actionNext"
+                android:inputType="number"
+                android:paddingStart="@dimen/normal_margin_secondary"
+                android:paddingEnd="0dp"
+                android:text="@={authenticationViewModel.month}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_year"
+            style="@style/OutlineTextInputLayout"
+            disableHelper="@{true}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/large_margin"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:hint="@string/year"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/til_month"
+            app:layout_constraintTop_toBottomOf="@id/tv_enter_your_name">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_year"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="@{!authenticationViewModel.isLoading()}"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="4"
+                android:text="@={authenticationViewModel.year}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_error_birthday"
+            style="@style/ErrorTextView"
+            error="@{viewModel.birthdayError}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/til_year"
+            app:layout_constraintStart_toStartOf="@id/til_day"
+            app:layout_constraintTop_toBottomOf="@id/til_day" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_gender"
+            style="@style/OutlineTextInputLayout"
+            disableHelper="@{true}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/large_margin"
+            android:layout_marginTop="@dimen/very_tiny_margin"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:hint="@string/gender"
+            app:endIconMode="dropdown_menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_error_birthday">
+
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                android:id="@+id/actv_gender"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_height"
+                android:enabled="@{!authenticationViewModel.isLoading()}"
+                android:focusable="false"
+                android:inputType="text"
+                android:paddingStart="@dimen/normal_margin_secondary"
+                android:paddingEnd="0dp"
+                android:text="@={authenticationViewModel.genderString}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_error_gender"
+            style="@style/ErrorTextView"
+            error="@{viewModel.genderError}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/tiny_margin"
+            app:layout_constraintEnd_toEndOf="@id/til_gender"
+            app:layout_constraintStart_toStartOf="@id/til_gender"
+            app:layout_constraintTop_toBottomOf="@id/til_gender" />
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/large_margin"
+            android:layout_marginBottom="@dimen/normal_margin"
+            android:enabled="@{!authenticationViewModel.isLoading()}"
+            android:onClick="@{() -> listener.validateBirthdayAndGender()}"
+            android:text="@string/next"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

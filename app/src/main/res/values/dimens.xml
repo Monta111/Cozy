@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="search_view_height">48dp</dimen>
+    <dimen name="large_corner_radius">32dp</dimen>
+    <dimen name="normal_corner_radius">8dp</dimen>
+    <dimen name="common_elevation">12dp</dimen>
+    <dimen name="small_elevation">8dp</dimen>
+    <dimen name="tiny_elevation">2dp</dimen>
+
+    <dimen name="icon_height_large">48dp</dimen>
+    <dimen name="icon_width_large">48dp</dimen>
+    <dimen name="icon_height_medium">40dp</dimen>
+    <dimen name="icon_width_medium">40dp</dimen>
+    <dimen name="icon_height">32dp</dimen>
+    <dimen name="icon_width">32dp</dimen>
+    <dimen name="icon_height_small">24dp</dimen>
+    <dimen name="icon_width_small">24dp</dimen>
+    <dimen name="icon_height_tiny">20dp</dimen>
+    <dimen name="icon_width_tiny">20dp</dimen>
+
+    <dimen name="very_tiny_margin">2dp</dimen>
+    <dimen name="tiny_margin">4dp</dimen>
+    <dimen name="small_margin_secondary">6dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
+    <dimen name="normal_margin">12dp</dimen>
+    <dimen name="normal_margin_secondary">16dp</dimen>
+    <dimen name="medium_margin">20dp</dimen>
+    <dimen name="large_margin">24dp</dimen>
+    <dimen name="extreme_margin">32dp</dimen>
+    <dimen name="extreme_margin_secondary">48dp</dimen>
+
+    <dimen name="text_size_subtitle">13sp</dimen>
+    <dimen name="text_size_error">13sp</dimen>
+    <dimen name="text_size_normal">14sp</dimen>
+    <dimen name="text_size_header">24sp</dimen>
+    <dimen name="text_size_body">16sp</dimen>
+    <dimen name="text_size_title">18sp</dimen>
+
+    <dimen name="common_height">56dp</dimen>
+
+    <dimen name="linear_progress_height">8dp</dimen>
+
+    <dimen name="dialog_corner_radius">8dp</dimen>
+
+    <dimen name="thumbnail_image_size">96dp</dimen>
+
+    <dimen name="stroke_width_small">1dp</dimen>
+</resources>

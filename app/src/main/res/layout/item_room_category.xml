@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.monta.cozy.enumclass.RoomCategory" />
+
+        <variable
+            name="listener"
+            type="com.monta.cozy.ui.adapter.RoomCategoryAdapter.OnCategoryRoomClickListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/tiny_margin"
+        android:onClick="@{() -> listener.onItemClick(item)}"
+        app:cardCornerRadius="@dimen/large_corner_radius"
+        app:cardElevation="@dimen/tiny_elevation">
+
+        <TextView
+            style="@style/TextView"
+            drawableStartCompat="@{item.iconResId}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/tiny_margin"
+            android:gravity="center"
+            android:paddingStart="@dimen/small_margin"
+            android:paddingTop="@dimen/small_margin_secondary"
+            android:paddingEnd="@dimen/small_margin"
+            android:paddingBottom="@dimen/small_margin_secondary"
+            android:text="@{item.nameStringResId}" />
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

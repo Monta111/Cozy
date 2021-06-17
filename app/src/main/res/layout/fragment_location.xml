@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.monta.cozy.ui.location.LocationViewModel" />
+
+        <variable
+            name="shareViewModel"
+            type="com.monta.cozy.ui.ShareViewModel" />
+
+        <variable
+            name="listener"
+            type="com.monta.cozy.ui.location.LocationFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cv_search"
+            style="@style/CardSearch"
+            android:layout_marginTop="@dimen/small_margin"
+            app:cardElevation="@dimen/common_elevation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_logo"
+                    android:layout_width="@dimen/icon_height_small"
+                    android:layout_height="@dimen/icon_width_small"
+                    android:layout_marginStart="@dimen/normal_margin"
+                    android:src="@drawable/ic_map" />
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    style="@style/MaterialIcon"
+                    android:onClick="@{() -> listener.onClearSearchRoomResult()}"
+                    android:src="@drawable/ic_back"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:maxLines="1"
+                    android:layout_marginEnd="@dimen/tiny_margin"
+                    android:ellipsize="end"
+                    android:id="@+id/tv_search"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/small_margin"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:onClick="@{() -> listener.displaySearchFragment()}"
+                    android:text="@string/search_hint"
+                    android:textSize="18sp" />
+
+                <ProgressBar
+                    android:layout_width="@dimen/icon_width_small"
+                    android:layout_height="@dimen/icon_height_small"
+                    android:visibility="@{viewModel.isLoading() ? View.VISIBLE : View.GONE}" />
+
+                <ImageView
+                    android:id="@+id/iv_clear"
+                    style="@style/MaterialIcon"
+                    android:onClick="@{() -> listener.onClearSearchRoomResult()}"
+                    android:src="@drawable/ic_clear"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/iv_speech"
+                    style="@style/MaterialIcon"
+                    android:clickable="@{!viewModel.isLoading()}"
+                    android:onClick="@{() -> listener.requestSpeechRecognition()}"
+                    android:src="@drawable/ic_voice" />
+
+                <ImageView
+                    android:id="@+id/iv_user"
+                    android:layout_width="@dimen/icon_width"
+                    android:layout_height="@dimen/icon_height"
+                    android:layout_marginEnd="@dimen/normal_margin"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:clickable="@{!viewModel.isLoading()}"
+                    android:onClick="@{() -> listener.displayAccountDialog()}"
+                    android:src="@drawable/ic_user" />
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_category_room"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/small_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_search"
+            tools:listitem="@layout/item_room_category" />
+
+        <TextView
+            android:id="@+id/tv_search_area"
+            style="@style/TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:background="@drawable/bg_corner_white"
+            android:drawablePadding="@dimen/tiny_margin"
+            android:elevation="@dimen/tiny_elevation"
+            android:gravity="center"
+            android:onClick="@{() -> listener.searchThisArea()}"
+            android:paddingStart="@dimen/small_margin"
+            android:paddingTop="@dimen/small_margin_secondary"
+            android:paddingEnd="@dimen/small_margin"
+            android:paddingBottom="@dimen/small_margin_secondary"
+            android:text="@string/search_in_this_area"
+            app:drawableStartCompat="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@id/iv_filter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rcv_category_room" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_filter"
+            style="@style/MaterialIcon.Medium"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:background="@drawable/default_ripple"
+            android:elevation="@dimen/tiny_elevation"
+            android:src="@drawable/ic_layer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rcv_category_room"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Circle" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_my_location"
+            style="@style/MaterialIcon"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:layout_marginBottom="@dimen/large_margin"
+            android:background="@drawable/default_ripple"
+            android:elevation="@dimen/tiny_elevation"
+            android:onClick="@{() -> listener.detechMyLocation()}"
+            android:src="@drawable/ic_my_location"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Circle" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_room"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/normal_margin"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:listitem="@layout/item_room" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="com.monta.cozy.ui.adapter.PlaceAutoCompleteAdapter.OnPlaceAutoCompleteClickListener" />
+
+        <variable
+            name="item"
+            type="com.monta.cozy.model.PlaceAutoComplete" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:onClick="@{() -> listener.onPlaceAutoCompleteClick(item)}">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_place"
+            style="@style/MaterialIcon.Medium"
+            android:layout_marginStart="@dimen/large_margin"
+            android:background="@color/gray_2"
+            android:src="@drawable/ic_place"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Circle" />
+
+        <TextView
+            style="@style/TextViewBody.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:text="@{item.mainText}"
+            app:layout_constraintStart_toEndOf="@id/iv_place"
+            app:layout_constraintTop_toTopOf="@id/iv_place"
+            tools:text="487 Hoàng Quốc Việt" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{item.secondaryText}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_place"
+            app:layout_constraintEnd_toStartOf="@id/iv_go"
+            app:layout_constraintStart_toEndOf="@id/iv_place" />
+
+        <ImageView
+            android:id="@+id/iv_go"
+            style="@style/MaterialIcon"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:background="@null"
+            android:src="@drawable/ic_north_west"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            style="@style/Divider.Horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

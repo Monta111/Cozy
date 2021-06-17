@@ -1,0 +1,11 @@
+package com.monta.cozy.utils.consts
+
+const val DEFAULT_MAP_MIN_ZOOM_VALUE = 3f
+const val DEFAULT_MAP_MAX_ZOOM_VALUE = 20f
+const val DEFAULT_LATITUDE = 21.005057299280995
+const val DEFAULT_LONGITUDE = 105.84146260612133
+const val DEFAULT_ZOOM = 16f
+
+const val MARKER_CENTER_LOCATION_ASSET_NAME = "dot.png"
+
+

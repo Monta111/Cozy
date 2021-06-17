@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="listener"
+            type="com.monta.cozy.ui.adapter.RoomAdapter.OnRoomClickListener" />
+
+        <variable
+            name="item"
+            type="com.monta.cozy.model.Room" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/normal_margin"
+        app:cardCornerRadius="@dimen/normal_corner_radius">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_image"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/item_image" />
+
+            <TextView
+                android:id="@+id/tv_detail"
+                style="@style/TextViewSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/large_margin"
+                android:layout_marginBottom="@dimen/normal_margin"
+                android:background="@drawable/bg_corner_white_stroke"
+                android:drawablePadding="@dimen/tiny_margin"
+                android:gravity="center"
+                android:onClick="@{() -> listener.onClickDetail(item)}"
+                android:paddingStart="@dimen/normal_margin"
+                android:paddingTop="@dimen/small_margin_secondary"
+                android:paddingEnd="@dimen/normal_margin"
+                android:paddingBottom="@dimen/small_margin_secondary"
+                android:text="@string/detail"
+                app:drawableStartCompat="@drawable/ic_list"
+                app:drawableTint="@color/blue"
+                app:layout_constraintBottom_toBottomOf="@id/rcv_image"
+                app:layout_constraintEnd_toEndOf="@id/rcv_image" />
+
+            <TextView
+                android:id="@+id/tv_room_name"
+                style="@style/TextViewTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:layout_marginTop="@dimen/normal_margin"
+                android:layout_marginEnd="@dimen/normal_margin"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{item.name}"
+                app:layout_constraintEnd_toStartOf="@id/iv_save"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rcv_image"
+                tools:text="487 Hoàng Quốc Việt" />
+
+            <TextView
+                android:id="@+id/tv_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                app:layout_constraintStart_toStartOf="@id/tv_room_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_room_name"
+                tools:text="5.0" />
+
+            <androidx.appcompat.widget.AppCompatRatingBar
+                android:id="@+id/rating_bar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tiny_margin"
+                android:numStars="5"
+                android:progressTint="@color/yellow"
+                app:layout_constraintBottom_toBottomOf="@id/tv_rating"
+                app:layout_constraintStart_toEndOf="@id/tv_rating"
+                app:layout_constraintTop_toTopOf="@id/tv_rating" />
+
+            <TextView
+                android:id="@+id/tv_number_of_ratings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tiny_margin"
+                app:layout_constraintBottom_toBottomOf="@id/rating_bar"
+                app:layout_constraintStart_toEndOf="@id/rating_bar"
+                app:layout_constraintTop_toTopOf="@id/rating_bar"
+                tools:text="(1000)" />
+
+            <TextView
+                android:id="@+id/tv_room_category"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:text="@{item.roomCategory.nameStringResId}"
+                app:layout_constraintStart_toStartOf="@id/tv_room_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_rating"
+                tools:text="Nhà cho thuê" />
+
+            <TextView
+                android:id="@+id/tv_dot"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tiny_margin"
+                android:text="@string/center_dot"
+                app:layout_constraintBottom_toBottomOf="@id/tv_room_category"
+                app:layout_constraintStart_toEndOf="@id/tv_room_category"
+                app:layout_constraintTop_toTopOf="@id/tv_room_category" />
+
+            <TextView
+                android:id="@+id/tv_rent_cost"
+                style="@style/TextView"
+                priceText="@{item.rentCost}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/tiny_margin"
+                app:layout_constraintBottom_toBottomOf="@id/tv_room_category"
+                app:layout_constraintStart_toEndOf="@id/tv_dot"
+                app:layout_constraintTop_toTopOf="@id/tv_room_category" />
+
+            <TextView
+                android:id="@+id/tv_room_status"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:text="@{item.available ? @string/room_available : @string/room_unavailable}"
+                android:textColor="@{item.available ? @color/green : @color/red}"
+                app:layout_constraintStart_toStartOf="@id/tv_room_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_room_category" />
+
+            <TextView
+                android:id="@+id/tv_distance"
+                style="@style/TextView"
+                distanceText="@{item.distanceToCenterLocation}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_margin"
+                android:textColor="@color/blue"
+                app:layout_constraintBottom_toBottomOf="@id/tv_room_status"
+                app:layout_constraintStart_toEndOf="@id/tv_room_status"
+                app:layout_constraintTop_toTopOf="@id/tv_room_status"
+                tools:text="1.2 km" />
+
+            <TextView
+                android:id="@+id/tv_address"
+                style="@style/TextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginEnd="@dimen/large_margin"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{item.formatedAddress}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/tv_room_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_room_status"
+                tools:text="Số 10 Ngõ 487 Hoàng Quốc Việt, Nghĩa Đô, Cầu Giáy" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_save"
+                style="@style/MaterialIcon"
+                android:layout_marginEnd="@dimen/large_margin"
+                android:padding="@dimen/very_tiny_margin"
+                android:src="@drawable/ic_bookmark"
+                android:tint="@color/blue"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_room_name"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Circle"
+                app:strokeColor="@color/gray_2"
+                app:strokeWidth="@dimen/stroke_width_small" />
+
+            <TextView
+                android:id="@+id/tv_navigate"
+                style="@style/TextViewSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/normal_margin"
+                android:background="@drawable/bg_corner_blue"
+                android:drawablePadding="@dimen/tiny_margin"
+                android:gravity="center"
+                android:onClick="@{() -> listener.onClickNavigate(item)}"
+                android:paddingStart="@dimen/normal_margin"
+                android:paddingTop="@dimen/small_margin_secondary"
+                android:paddingEnd="@dimen/normal_margin"
+                android:paddingBottom="@dimen/small_margin_secondary"
+                android:text="@string/direction"
+                android:textColor="@color/white"
+                app:drawableStartCompat="@drawable/ic_directions"
+                app:drawableTint="@color/white"
+                app:layout_constraintStart_toStartOf="@id/tv_room_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_address" />
+
+            <TextView
+                android:onClick="@{() -> listener.onClickMessage(item)}"
+                android:id="@+id/tv_message"
+                style="@style/TextViewSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/small_margin"
+                android:background="@drawable/bg_corner_white_stroke"
+                android:drawablePadding="@dimen/tiny_margin"
+                android:gravity="center"
+                android:paddingStart="@dimen/normal_margin"
+                android:paddingTop="@dimen/small_margin_secondary"
+                android:paddingEnd="@dimen/normal_margin"
+                android:paddingBottom="@dimen/small_margin_secondary"
+                android:text="@string/message"
+                app:drawableStartCompat="@drawable/ic_question_answer"
+                app:drawableTint="@color/blue"
+                app:layout_constraintBottom_toBottomOf="@id/tv_navigate"
+                app:layout_constraintStart_toEndOf="@id/tv_navigate"
+                app:layout_constraintTop_toTopOf="@id/tv_navigate" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/normal_margin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_navigate" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

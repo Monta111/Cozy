@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/small_margin"
+        android:paddingBottom="@dimen/small_margin">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/icon_width_large"
+            android:layout_height="@dimen/icon_height_large"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/small_margin"
+            android:background="@color/green"
+            android:padding="@dimen/tiny_margin"
+            app:layout_constraintBottom_toBottomOf="@id/ll_message"
+            app:layout_constraintStart_toStartOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Circle" />
+
+        <TextView
+            android:id="@+id/tv_first_name_short"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_header"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+            app:layout_constraintEnd_toEndOf="@id/iv_avatar"
+            app:layout_constraintStart_toStartOf="@id/iv_avatar"
+            app:layout_constraintTop_toTopOf="@+id/iv_avatar" />
+
+        <LinearLayout
+            android:id="@+id/ll_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/small_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_avatar"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_message"
+                style="@style/TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/large_margin"
+                android:background="@drawable/bg_corner_gray"
+                android:gravity="center_vertical"
+                android:minHeight="48dp"
+                android:paddingStart="@dimen/normal_margin"
+                android:paddingTop="@dimen/small_margin"
+                android:paddingEnd="@dimen/normal_margin"
+                android:paddingBottom="@dimen/small_margin"
+                tools:text="anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em anh em " />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/very_tiny_margin"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/ll_message"
+            app:layout_constraintTop_toBottomOf="@id/ll_message"
+            tools:text="12:23, 28/04" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

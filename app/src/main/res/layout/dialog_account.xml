@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="listener"
+            type="com.monta.cozy.ui.dialog.account.AccountDialog" />
+
+        <variable
+            name="shareViewModel"
+            type="com.monta.cozy.ui.ShareViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_dialog">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            style="@style/MaterialIcon"
+            android:onClick="@{() -> listener.dismiss()}"
+            android:src="@drawable/ic_close"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_app_name"
+            style="@style/TextViewAppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/iv_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_close" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="@{() -> listener.animateExpandCollapse()}"
+            app:layout_constraintBottom_toTopOf="@id/v_0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_close" />
+
+        <View
+            android:id="@+id/v_0"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/normal_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_avatar"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/icon_width_large"
+            android:layout_height="@dimen/icon_height_large"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:background="@color/green"
+            android:padding="@dimen/tiny_margin"
+            android:visibility="@{shareViewModel.signedIn ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_close"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Circle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{shareViewModel.user.firstName.substring(0,1)}"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_header"
+            android:visibility="@{shareViewModel.signedIn ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+            app:layout_constraintEnd_toEndOf="@id/iv_avatar"
+            app:layout_constraintStart_toStartOf="@id/iv_avatar"
+            app:layout_constraintTop_toTopOf="@+id/iv_avatar" />
+
+        <TextView
+            android:id="@+id/tv_full_name"
+            style="@style/TextView.Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:gravity="center_vertical"
+            android:text="@{shareViewModel.user.lastName + ' ' + shareViewModel.user.firstName}"
+            android:visibility="@{shareViewModel.signedIn ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toTopOf="@id/tv_email"
+            app:layout_constraintStart_toEndOf="@id/iv_avatar"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:gravity="center_vertical"
+            android:text="@{shareViewModel.user.email}"
+            android:textSize="@dimen/text_size_subtitle"
+            android:visibility="@{shareViewModel.signedIn ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+            app:layout_constraintStart_toEndOf="@id/iv_avatar"
+            app:layout_constraintTop_toBottomOf="@id/tv_full_name" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_expand_collapse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/normal_margin"
+            android:padding="1dp"
+            android:src="@drawable/ic_expand"
+            android:visibility="@{shareViewModel.signedIn ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Circle"
+            app:strokeColor="@color/gray_2"
+            app:strokeWidth="2dp" />
+
+        <View
+            android:id="@+id/divider_child"
+            style="@style/Divider.Horizontal"
+            android:layout_width="0dp"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/tv_email"
+            app:layout_constraintTop_toBottomOf="@id/tv_email" />
+
+        <LinearLayout
+            android:id="@+id/ll_account_expanded"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/normal_margin"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="@{() -> listener.signOut()}"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/tv_email"
+            app:layout_constraintTop_toTopOf="@id/divider_child">
+
+            <ImageView
+                style="@style/MaterialIcon"
+                android:background="@null"
+                android:src="@drawable/ic_sign_out" />
+
+            <TextView
+                style="@style/TextView.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:gravity="center_vertical"
+                android:text="@string/sign_out" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider_0"
+            style="@style/Divider.Horizontal"
+            android:layout_marginTop="@dimen/normal_margin"
+            android:visibility="@{shareViewModel.signedIn ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ll_account_expanded" />
+
+        <ImageView
+            android:id="@+id/iv_add_account"
+            style="@style/MaterialIcon"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:src="@drawable/ic_add_account"
+            android:visibility="@{shareViewModel.signedIn ? View.GONE : View.VISIBLE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_0" />
+
+        <TextView
+            android:id="@+id/tv_add_account"
+            style="@style/TextView.Bold"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/normal_margin"
+            android:text="@string/add_account"
+            android:visibility="@{shareViewModel.signedIn ? View.GONE : View.VISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_add_account"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_add_account"
+            app:layout_constraintTop_toTopOf="@id/iv_add_account" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="@{() -> listener.displayAuthenticationScreen()}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_add_account"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_add_account" />
+
+        <View
+            android:id="@+id/divider_1"
+            style="@style/Divider.Horizontal"
+            android:visibility="@{shareViewModel.signedIn ? View.GONE : View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_add_account" />
+
+        <ImageView
+            android:id="@+id/iv_profile"
+            style="@style/MaterialIcon"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:src="@drawable/ic_person"
+            android:visibility="@{shareViewModel.signedIn ? View.VISIBLE : View.GONE}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_1" />
+
+        <TextView
+            android:id="@+id/tv_profile"
+            style="@style/TextView.Bold"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/normal_margin"
+            android:text="@string/your_profile"
+            android:visibility="@{shareViewModel.signedIn ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_profile"
+            app:layout_constraintTop_toTopOf="@id/iv_profile" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?android:attr/selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="@id/iv_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_profile" />
+
+        <View
+            android:id="@+id/divider_2"
+            style="@style/Divider.Horizontal"
+            android:visibility="@{shareViewModel.signedIn ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_profile" />
+
+        <ImageView
+            android:id="@+id/iv_setting"
+            style="@style/MaterialIcon"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:src="@drawable/ic_settings"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_2" />
+
+        <TextView
+            android:id="@+id/tv_setting"
+            style="@style/TextView.Bold"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/normal_margin"
+            android:text="@string/setting"
+            app:layout_constraintBottom_toBottomOf="@id/iv_setting"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_setting"
+            app:layout_constraintTop_toTopOf="@id/iv_setting" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?android:attr/selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="@id/iv_setting"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_setting" />
+
+        <ImageView
+            android:id="@+id/iv_help"
+            style="@style/MaterialIcon"
+            android:layout_marginStart="@dimen/normal_margin"
+            android:src="@drawable/ic_help"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_setting" />
+
+        <TextView
+            android:id="@+id/tv_help"
+            style="@style/TextView.Bold"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/normal_margin"
+            android:text="@string/help_and_feedback"
+            app:layout_constraintBottom_toBottomOf="@id/iv_help"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_help"
+            app:layout_constraintTop_toTopOf="@id/iv_help" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="?android:attr/selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="@id/iv_help"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_help" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

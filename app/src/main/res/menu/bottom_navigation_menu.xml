@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/explore"
+        android:enabled="true"
+        android:icon="@drawable/ic_location"
+        android:title="@string/explore" />
+    <item
+        android:id="@+id/inbox"
+        android:enabled="true"
+        android:icon="@drawable/ic_inbox"
+        android:title="@string/inbox" />
+    <item
+        android:id="@+id/post_room"
+        android:enabled="true"
+        android:icon="@drawable/ic_add_circle_outline"
+        android:title="@string/post_room" />
+
+    <item
+        android:id="@+id/saved"
+        android:enabled="true"
+        android:icon="@drawable/ic_bookmark"
+        android:title="@string/saved" />
+</menu>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_item_title"
+    style="@style/TextViewBody"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/common_height"
+    android:maxLines="2"
+    android:ellipsize="end"
+    android:background="?android:attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:paddingStart="@dimen/normal_margin"
+    android:paddingEnd="@dimen/normal_margin">
+
+</TextView>

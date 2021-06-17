@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="CardSearch" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/search_view_height</item>
+        <item name="android:layout_marginStart">@dimen/normal_margin</item>
+        <item name="android:layout_marginEnd">@dimen/normal_margin</item>
+        <item name="cardCornerRadius">@dimen/large_corner_radius</item>
+    </style>
+
+    <style name="MaterialIcon">
+        <item name="android:layout_width">@dimen/icon_width_large</item>
+        <item name="android:layout_height">@dimen/icon_height_large</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+    </style>
+
+    <style name="MaterialIcon.Medium">
+        <item name="android:layout_width">@dimen/icon_width_medium</item>
+        <item name="android:layout_height">@dimen/icon_height_medium</item>
+    </style>
+
+    <style name="OutlineTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="endIconMode">clear_text</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="errorEnabled">true</item>
+        <item name="errorTextColor">@color/red</item>
+    </style>
+
+    <style name="FilledTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="endIconMode">clear_text</item>
+        <item name="startIconTint">@color/blue</item>
+        <item name="suffixTextColor">@color/blue</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="errorIconDrawable">@null</item>
+        <item name="errorEnabled">true</item>
+        <item name="errorTextColor">@color/red</item>
+    </style>
+
+    <style name="TextView">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextView.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewHeader" parent="TextView">
+        <item name="android:textSize">@dimen/text_size_header</item>
+    </style>
+
+    <style name="TextViewTitle" parent="TextView">
+        <item name="android:textSize">@dimen/text_size_title</item>
+    </style>
+
+    <style name="TextViewTitle.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewHeader.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewBody" parent="TextView">
+        <item name="android:textSize">@dimen/text_size_body</item>
+    </style>
+
+    <style name="TextViewBody.Bold">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewSubtitle" parent="TextView">
+        <item name="android:textSize">@dimen/text_size_subtitle</item>
+    </style>
+
+    <style name="ErrorTextView">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">@dimen/text_size_error</item>
+        <item name="android:drawablePadding">@dimen/small_margin</item>
+        <item name="drawableStartCompat">@drawable/ic_info_error</item>
+    </style>
+
+    <style name="IndeterminateLinearProgress">
+        <item name="android:layout_height">@dimen/linear_progress_height</item>
+        <item name="trackColor">@color/gray_2</item>
+        <item name="android:indeterminate">true</item>
+        <item name="indicatorColor">@color/blue</item>
+    </style>
+
+    <style name="TextViewAppName">
+        <item name="android:gravity">center</item>
+        <item name="android:text">@string/app_name</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:textSize">@dimen/text_size_header</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Divider">
+        <item name="android:background">@color/gray_2</item>
+    </style>
+
+    <style name="Divider.Horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+    </style>
+
+    <style name="EditText">
+        <item name="android:backgroundTint">@color/blue</item>
+    </style>
+
+    <style name="ChoiceChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="iconStartPadding">@dimen/tiny_margin</item>
+        <item name="chipIconTint">@color/color_icon_chip_tint</item>
+        <item name="chipIconVisible">true</item>
+        <item name="chipStrokeColor">@color/color_bg_chip_tint</item>
+        <item name="chipStrokeWidth">2dp</item>
+        <item name="chipBackgroundColor">@color/white</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="ItemRoomDetail" parent="TextView">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:drawablePadding">@dimen/large_margin</item>
+        <item name="android:paddingStart">@dimen/normal_margin</item>
+        <item name="android:paddingTop">@dimen/normal_margin</item>
+        <item name="android:paddingEnd">@dimen/large_margin</item>
+        <item name="android:paddingBottom">@dimen/normal_margin</item>
+        <item name="drawableTint">@color/blue</item>
+    </style>
+
+    <style name="RatingProgressBar">
+        <item name="trackColor">@color/gray_2</item>
+        <item name="trackCornerRadius">@dimen/normal_corner_radius</item>
+        <item name="indicatorColor">@color/yellow</item>
+    </style>
+
+    <style name="ProgressDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/blue</item>
+    </style>
+</resources>

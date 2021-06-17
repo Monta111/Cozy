@@ -7,7 +7,7 @@
 
         <variable
             name="listener"
-            type="com.monta.cozy.ui.adapter.RoomAdapter.OnRoomClickListener" />
+            type="com.monta.cozy.ui.adapter.FavoriteRoomAdapter.OnRoomClickListener" />
 
         <variable
             name="item"
@@ -15,9 +15,10 @@
     </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="300dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
         android:layout_marginEnd="@dimen/normal_margin"
         app:cardCornerRadius="@dimen/normal_corner_radius">
 
@@ -147,19 +148,6 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_room_category" />
 
             <TextView
-                android:id="@+id/tv_distance"
-                style="@style/TextView"
-                distanceText="@{item.distanceToCenterLocation}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/small_margin"
-                android:textColor="@color/blue"
-                app:layout_constraintBottom_toBottomOf="@id/tv_room_status"
-                app:layout_constraintStart_toEndOf="@id/tv_room_status"
-                app:layout_constraintTop_toTopOf="@id/tv_room_status"
-                tools:text="1.2 km" />
-
-            <TextView
                 android:id="@+id/tv_address"
                 style="@style/TextView"
                 android:layout_width="0dp"
@@ -177,11 +165,11 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_save"
                 style="@style/MaterialIcon"
-                android:layout_marginEnd="@dimen/large_margin"
-                android:padding="@dimen/very_tiny_margin"
                 android:onClick="@{() -> listener.onClickBookmark(item)}"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:src="@{item.favorite ? @drawable/ic_bookmark_fill : @drawable/ic_bookmark}"
+                android:layout_marginEnd="@dimen/large_margin"
+                android:padding="@dimen/very_tiny_margin"
+                android:src="@drawable/ic_bookmark_fill"
                 android:tint="@color/blue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/tv_room_name"
@@ -211,7 +199,6 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_address" />
 
             <TextView
-                android:onClick="@{() -> listener.onClickMessage(item)}"
                 android:id="@+id/tv_message"
                 style="@style/TextViewSubtitle"
                 android:layout_width="wrap_content"
@@ -220,6 +207,7 @@
                 android:background="@drawable/bg_corner_white_stroke"
                 android:drawablePadding="@dimen/tiny_margin"
                 android:gravity="center"
+                android:onClick="@{() -> listener.onClickMessage(item)}"
                 android:paddingStart="@dimen/normal_margin"
                 android:paddingTop="@dimen/small_margin_secondary"
                 android:paddingEnd="@dimen/normal_margin"

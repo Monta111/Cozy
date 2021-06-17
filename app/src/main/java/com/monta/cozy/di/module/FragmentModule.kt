@@ -10,7 +10,10 @@ import com.monta.cozy.ui.authentication.password_sign_in.PasswordSignInFragment
 import com.monta.cozy.ui.authentication.password_sign_up.PasswordSignUpFragment
 import com.monta.cozy.ui.authentication.unexpected_error.UnexpectedErrorFragment
 import com.monta.cozy.ui.dialog.account.AccountDialog
+import com.monta.cozy.ui.favorite.FavoriteFragment
+import com.monta.cozy.ui.favorite.FavoriteViewModel
 import com.monta.cozy.ui.location.LocationFragment
+import com.monta.cozy.ui.message.MessageFragment
 import com.monta.cozy.ui.message.detail.MessageDetailFragment
 import com.monta.cozy.ui.post_room.PostRoomFragment
 import com.monta.cozy.ui.room_detail.RoomDetailFragment
@@ -73,4 +76,10 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributeMessageDetailFragment(): MessageDetailFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeMessageFragment(): MessageFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeFavoriteFragment(): FavoriteFragment
 }

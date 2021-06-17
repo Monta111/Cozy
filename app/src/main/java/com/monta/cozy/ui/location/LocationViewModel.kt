@@ -15,19 +15,21 @@ import com.monta.cozy.model.MapConfig
 import com.monta.cozy.model.PlaceDetail
 import com.monta.cozy.model.Room
 import com.monta.cozy.utils.consts.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import timber.log.Timber
 import javax.inject.Inject
 
 class LocationViewModel @Inject constructor(
     private val cacheRepository: CacheRepository,
     private val roomRepository: RoomRepository,
-    private val placeRepository: PlaceRepository
+    private val placeRepository: PlaceRepository,
 ) :
     BaseViewModel<LocationEvent>() {
 
@@ -45,6 +47,8 @@ class LocationViewModel @Inject constructor(
     private var filteredRentCost: Int = 0
     private var filteredFeatures: List<RoomFeature> = emptyList()
 
+    val favoriteRoomIds = mutableListOf<String>()
+
     init {
         var config = cacheRepository.getMapConfig()
         if (config == null) {
@@ -55,6 +59,38 @@ class LocationViewModel @Inject constructor(
             )
         }
         _mapConfig.value = config
+        fetchFavoriteRoom()
+    }
+
+    fun getFavoriteRoomIdsFromCache(): List<String> {
+        return cacheRepository.getFavoriteRoomList().map { it.id }
+    }
+
+    private fun fetchFavoriteRoom() {
+        viewModelScope.launch {
+            val result = withContext(Dispatchers.IO) {
+                return@withContext cacheRepository.getFavoriteRoomList()
+            }
+            favoriteRoomIds.clear()
+            val ids = result.map { it.id }
+            favoriteRoomIds.addAll(ids)
+        }
+    }
+
+    fun addFavoriteRoom(room: Room) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                cacheRepository.addFavoriteRoom(room)
+            }
+        }
+    }
+
+    fun removeFavoriteRoom(room: Room) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                cacheRepository.removeFavoriteRoom(room)
+            }
+        }
     }
 
     fun saveMapConfig(latitude: Double, longitude: Double, zoom: Float) {
@@ -86,14 +122,22 @@ class LocationViewModel @Inject constructor(
                     filteredFeatures.joinToString(separator = ",") { it.toString() }
             }
 
+            fetchFavoriteRoom()
             roomRepository.searchNearbyRoom(query, bounds)
-                .onStart { enableLoading(true) }
+                .onStart {
+                    enableLoading(true)
+                }
                 .onCompletion { enableLoading(false) }
                 .catch { e ->
                     Timber.e(e)
                     emit(emptyList())
                 }
                 .collect {
+                    it.forEach { room ->
+                        if (favoriteRoomIds.contains(room.id)) {
+                            room.isFavorite = true
+                        }
+                    }
                     _roomNearbyList.value = it
                 }
         }

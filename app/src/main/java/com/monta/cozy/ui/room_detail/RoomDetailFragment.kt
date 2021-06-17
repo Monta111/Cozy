@@ -38,6 +38,7 @@ class RoomDetailFragment : BaseFragment<FragmentRoomDetailBinding, RoomDetailVie
     override fun setupView() {
         super.setupView()
         requestHideBottomNav()
+        requestFullScreen()
         binding.ivBack.setMargins(top = getStatusBarHeight() + getDimen(R.dimen.small_elevation).toInt())
         binding.tb.apply {
             setMargins(top = getStatusBarHeight())

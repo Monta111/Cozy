@@ -3,8 +3,6 @@ package com.monta.cozy.model
 import com.google.firebase.firestore.Exclude
 import com.monta.cozy.enumclass.RoomCategory
 import com.monta.cozy.enumclass.RoomFeature
-import java.math.BigDecimal
-import java.math.RoundingMode
 
 data class Room(
     var id: String = "",
@@ -28,5 +26,6 @@ data class Room(
     var features: List<RoomFeature> = emptyList(),
     var imageUrls: List<String> = emptyList(),
     var isAvailable: Boolean = true,
-    @get:Exclude var distanceToCenterLocation: Double = 0.0
+    @get:Exclude var distanceToCenterLocation: Double = 0.0,
+    @get:Exclude var isFavorite: Boolean = false,
 )

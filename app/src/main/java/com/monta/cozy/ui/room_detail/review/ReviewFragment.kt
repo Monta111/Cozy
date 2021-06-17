@@ -43,7 +43,7 @@ class ReviewFragment : BaseFragment<FragmentReviewBinding, ReviewViewModel>() {
         binding.rcvRating.itemAnimator = null
         binding.rcvRating.adapter = ReviewAdapter().also { reviewAdapter = it }
         reviewAdapter?.onPostReviewListener = { reviewContent, ratingScore ->
-            if(shareViewModel.isSignedIn.value == true) {
+            if(shareViewModel.isSignedIn()) {
                 progressDialog?.show()
             }
             viewModel.ratingRoom(reviewContent, ratingScore)

@@ -21,8 +21,9 @@ class ShareViewModel @Inject constructor(private val userRepository: UserReposit
     private var _user = MutableLiveData<User>()
     val user: LiveData<User> = _user
 
-    private var _isSignedIn = MutableLiveData(false)
-    val isSignedIn: LiveData<Boolean> = _isSignedIn
+    fun isSignedIn() :Boolean {
+        return userRepository.isSignedIn()
+    }
 
     private var fetchUserJob: Job? = null
 
@@ -31,13 +32,10 @@ class ShareViewModel @Inject constructor(private val userRepository: UserReposit
     init {
         if (userRepository.isSignedIn()) {
             notifyUserSignedIn()
-        } else {
-            _isSignedIn.value = false
         }
     }
 
     fun notifyUserSignedIn() {
-        _isSignedIn.value = true
         fetchUser()
     }
 

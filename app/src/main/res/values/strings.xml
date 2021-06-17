@@ -135,4 +135,5 @@
     <string name="please_sign_in">Vui lòng đăng nhập</string>
     <string name="room_available">Còn phòng</string>
     <string name="room_unavailable">Hết phòng</string>
+    <string name="saved_room">Phòng đã lưu</string>
 </resources>

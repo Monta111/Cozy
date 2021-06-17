@@ -215,6 +215,30 @@ abstract class BaseFragment<B : ViewDataBinding, VM : ViewModel> : DaggerFragmen
         }
     }
 
+    fun requestFullScreen() {
+        if ((activity as? MainActivity)?.isFullScreen == false) {
+            viewLifecycleOwner.lifecycle.addObserver(object : LifecycleEventObserver {
+                override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+                    when (event) {
+                        Lifecycle.Event.ON_START -> {
+                            (activity as? MainActivity)?.isFullScreen = true
+                            enableFullScreen(true)
+                        }
+                        Lifecycle.Event.ON_STOP -> {
+                            (activity as? MainActivity)?.isFullScreen = false
+                            enableFullScreen(false)
+                        }
+                        Lifecycle.Event.ON_DESTROY -> viewLifecycleOwner.lifecycle.removeObserver(
+                            this
+                        )
+                        else -> {
+                        }
+                    }
+                }
+            })
+        }
+    }
+
     fun showBottomNav() {
         (activity as? MainActivity)?.showBottomNav()
     }

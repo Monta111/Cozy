@@ -8,8 +8,8 @@ const val PLACE_REQUEST_KEY = "PlaceRequestKey"
 const val PLACE_ID_KEY = "placeId"
 const val ROOM_DETAIL_REQUEST_KEY = "RoomDetailRequestKey"
 const val ROOM_ID_KEY = "roomId"
-const val RECEIVER_ID_REQUEST_KEY ="ReceiverIdRequestKey"
-const val RECEIVER_ID_KEY = "receiverId"
+const val PARTNET_ID_REQUEST_KEY ="PartnerIdRequestKey"
+const val PARTNER_ID_KEY = "partnerId"
 
 val MONTHS = arrayOf(
     "1",

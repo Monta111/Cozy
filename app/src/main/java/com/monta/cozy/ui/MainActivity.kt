@@ -7,13 +7,14 @@ import android.net.NetworkRequest
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
 import com.monta.cozy.R
 import com.monta.cozy.base.BaseActivity
 import com.monta.cozy.base.observeInLifecycle
 import com.monta.cozy.databinding.ActivityMainBinding
 import com.monta.cozy.ui.authentication.AuthenticationFragment
+import com.monta.cozy.ui.favorite.FavoriteFragment
 import com.monta.cozy.ui.location.LocationFragment
+import com.monta.cozy.ui.message.MessageFragment
 import com.monta.cozy.ui.message.detail.MessageDetailFragment
 import com.monta.cozy.ui.post_room.PostRoomFragment
 import com.monta.cozy.ui.room_detail.RoomDetailFragment
@@ -67,7 +68,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.bottomNav.setOnNavigationItemSelectedListener { item ->
             if (previousNavSelectedId != item.itemId) {
                 var shoudNavigate = false
-                previousNavSelectedId = item.itemId
                 when (item.itemId) {
                     R.id.explore -> {
                         var fragment = exploreFragment
@@ -83,21 +83,35 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         shoudNavigate = true
                     }
                     R.id.inbox -> {
-                        replaceFragment(R.id.nav_host_fragment, Fragment(), tag = "")
-                        shoudNavigate = true
+                        shoudNavigate = if (viewModel.isSignedIn()) {
+                            addFragment(
+                                R.id.nav_host_fragment,
+                                MessageFragment(),
+                                tag = MessageFragment.TAG
+                            )
+                            false
+                        } else {
+                            showToast(getString(R.string.please_sign_in))
+                            displayAuthenticationFragment()
+                            false
+                        }
                     }
                     R.id.saved -> {
-                        replaceFragment(R.id.nav_host_fragment, Fragment(), tag = "")
-                        shoudNavigate = true
+                        addFragment(
+                            R.id.nav_host_fragment,
+                            FavoriteFragment(),
+                            tag = FavoriteFragment.TAG
+                        )
+                        shoudNavigate = false
                     }
                     R.id.post_room -> {
-                        shoudNavigate = if (viewModel.isSignedIn.value == true) {
-                            replaceFragment(
+                        shoudNavigate = if (viewModel.isSignedIn()) {
+                            addFragment(
                                 R.id.nav_host_fragment,
                                 PostRoomFragment(),
                                 tag = PostRoomFragment.TAG
                             )
-                            true
+                            false
                         } else {
                             showToast(getString(R.string.please_sign_in))
                             displayAuthenticationFragment()
@@ -148,7 +162,16 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     private fun displayExploreScreen() {
-        binding.bottomNav.selectedItemId = R.id.explore
+        var fragment = exploreFragment
+        if (fragment == null) {
+            fragment = LocationFragment()
+            exploreFragment = fragment
+        }
+        replaceFragment(
+            R.id.nav_host_fragment,
+            fragment,
+            tag = LocationFragment.TAG
+        )
 
     }
 

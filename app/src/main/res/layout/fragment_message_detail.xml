@@ -17,6 +17,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent">
 
         <TextView
@@ -31,7 +32,6 @@
             android:maxLines="1"
             android:paddingStart="56dp"
             android:paddingEnd="56dp"
-            android:text="@string/add_location"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -89,8 +89,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/normal_margin"
-                android:layout_marginTop="@dimen/very_tiny_margin"
-                android:layout_marginBottom="@dimen/very_tiny_margin"
+                android:layout_marginTop="@dimen/small_margin"
+                android:layout_marginBottom="@dimen/small_margin"
                 android:layout_weight="1"
                 android:background="@null"
                 android:hint="Tin nhắn của bạn"

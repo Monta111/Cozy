@@ -1,4 +1,6 @@
 package com.monta.cozy.ui.message
 
-class MessageEvent {
+import com.monta.cozy.base.BaseEvent
+
+sealed class MessageEvent : BaseEvent() {
 }

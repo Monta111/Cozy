@@ -7,7 +7,6 @@ import com.monta.cozy.data.MessageRepository
 import com.monta.cozy.data.UserRepository
 import com.monta.cozy.model.Message
 import com.monta.cozy.model.User
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -25,8 +24,14 @@ class MessageDetailViewModel @Inject constructor(
     private var receiverId: String? = null
     private var senderId: String? = null
 
+    var newMessage = MutableLiveData<Message>()
+    var oldMessageList = MutableLiveData<List<Message>>(emptyList())
+
+    private var endTimeMillis = System.currentTimeMillis()
+
     fun setReceiverId(receiverId: String) {
         this.receiverId = receiverId
+
         viewModelScope.launch {
             userRepository.fetchUser(receiverId)
                 .catch { Timber.e(it) }
@@ -38,6 +43,47 @@ class MessageDetailViewModel @Inject constructor(
 
     fun setSenderId(senderId: String) {
         this.senderId = senderId
+
+        val now = System.currentTimeMillis()
+        val receiverId = receiverId
+        if (receiverId != null) {
+            viewModelScope.launch {
+                messageRepository.listenForNewestMessage(
+                    startTimeMillis = now,
+                    ownerId = senderId,
+                    partnerId = receiverId
+                )
+                    .catch { Timber.e(it) }
+                    .collect {
+                        newMessage.value = it
+                    }
+            }
+
+            endTimeMillis = now
+            loadOldMessage()
+        }
+    }
+
+    fun loadOldMessage() {
+        Timber.e("loadOld $endTimeMillis")
+        val ownerId = senderId
+        val partnerId = receiverId
+        if (ownerId != null && partnerId != null) {
+            viewModelScope.launch {
+                messageRepository.getMessageList(
+                    endTimeMillis,
+                    ownerId,
+                    partnerId
+                )
+                    .catch { Timber.e(it) }
+                    .collect {
+                        if(it.isNotEmpty()) {
+                            endTimeMillis = it.last().time
+                            oldMessageList.value = it
+                        }
+                    }
+            }
+        }
     }
 
     fun sendMessage(content: String) {

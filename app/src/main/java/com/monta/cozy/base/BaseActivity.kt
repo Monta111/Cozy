@@ -51,9 +51,6 @@ abstract class BaseActivity<B : ViewDataBinding> : DaggerAppCompatActivity() {
         addToBackStack: Boolean = true
     ) {
         supportFragmentManager.commit {
-            supportFragmentManager.fragments.forEach { fragment ->
-                hide(fragment)
-            }
             setReorderingAllowed(true)
             when (transition) {
                 Transition.SLIDE_LEFT_RIGHT -> setCustomAnimations(

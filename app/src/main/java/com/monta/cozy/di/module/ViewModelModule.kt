@@ -14,7 +14,9 @@ import com.monta.cozy.ui.authentication.name.NameViewModel
 import com.monta.cozy.ui.authentication.password_sign_in.PasswordSignInViewModel
 import com.monta.cozy.ui.authentication.password_sign_up.PasswordSignUpViewModel
 import com.monta.cozy.ui.authentication.unexpected_error.UnexpectedErrorViewModel
+import com.monta.cozy.ui.favorite.FavoriteViewModel
 import com.monta.cozy.ui.location.LocationViewModel
+import com.monta.cozy.ui.message.MessageViewModel
 import com.monta.cozy.ui.message.detail.MessageDetailViewModel
 import com.monta.cozy.ui.post_room.PostRoomViewModel
 import com.monta.cozy.ui.room_detail.RoomDetailViewModel
@@ -116,4 +118,14 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MessageDetailViewModel::class)
     abstract fun messsageDetailViewModel(viewModel: MessageDetailViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MessageViewModel::class)
+    abstract fun messageViewModel(viewModel: MessageViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FavoriteViewModel::class)
+    abstract fun favorieViewModel(viewModel: FavoriteViewModel): ViewModel
 }

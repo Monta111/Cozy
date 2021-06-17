@@ -77,6 +77,19 @@ class LocationFragment : SpeechRecognitionFragment<FragmentLocationBinding, Loca
             val placeId = result.getString(PLACE_ID_KEY)
             placeId?.let { searchNearbyRoom(it) }
         }
+        setFragmentResultListener("FavoriteChange") { _, result ->
+            val roomId = result.getString("favoriteRoomId")
+            if (roomId != null) {
+                val rooms = roomAdapter?.getList()
+                val copyList = rooms?.map { it.copy() }?.toMutableList() ?: mutableListOf()
+                copyList.forEach {
+                    if(it.id == roomId) {
+                        it.isFavorite = !it.isFavorite
+                    }
+                }
+                roomAdapter?.submitList(copyList)
+            }
+        }
     }
 
     override fun onAttach(context: Context) {
@@ -98,6 +111,7 @@ class LocationFragment : SpeechRecognitionFragment<FragmentLocationBinding, Loca
                 }
             }).also { this@LocationFragment.roomCategoryAdapter = it }
 
+        binding.rcvRoom.itemAnimator = null
         binding.rcvRoom.adapter = RoomAdapter(object : RoomAdapter.OnRoomClickListener {
 
             override fun onClickNavigate(room: Room) {
@@ -110,16 +124,32 @@ class LocationFragment : SpeechRecognitionFragment<FragmentLocationBinding, Loca
             }
 
             override fun onClickMessage(room: Room) {
-                if (shareViewModel.isSignedIn.value == true) {
+                if (shareViewModel.isSignedIn()) {
                     setFragmentResult(
-                        RECEIVER_ID_REQUEST_KEY,
-                        bundleOf(RECEIVER_ID_KEY to room.ownerId)
+                        PARTNET_ID_REQUEST_KEY,
+                        bundleOf(PARTNER_ID_KEY to room.ownerId)
                     )
                     shareViewModel.sendEvent(MainEvent.DisplayMessageDetailFragment)
                 } else {
                     showToast(getString(R.string.please_sign_in))
                     shareViewModel.sendEvent(MainEvent.DisplayAuthenticationScreen)
                 }
+            }
+
+            override fun onClickBookmark(room: Room) {
+                if (room.isFavorite) {
+                    viewModel.removeFavoriteRoom(room)
+                } else {
+                    viewModel.addFavoriteRoom(room)
+                }
+                val rooms = roomAdapter?.getList()
+                val copyList = rooms?.map { it.copy() }?.toMutableList() ?: mutableListOf()
+                copyList.forEach {
+                    if (it.id == room.id) {
+                        it.isFavorite = !room.isFavorite
+                    }
+                }
+                roomAdapter?.submitList(copyList)
             }
         }).also { this@LocationFragment.roomAdapter = it }
 

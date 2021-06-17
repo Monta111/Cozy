@@ -1,4 +1,6 @@
 package com.monta.cozy.ui.favorite
 
-class FavoriteEvent {
+import com.monta.cozy.base.BaseEvent
+
+sealed class FavoriteEvent : BaseEvent() {
 }

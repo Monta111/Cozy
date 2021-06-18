@@ -7,6 +7,10 @@ import android.net.NetworkRequest
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import com.google.android.material.badge.BadgeDrawable
+import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.monta.cozy.R
 import com.monta.cozy.base.BaseActivity
 import com.monta.cozy.base.observeInLifecycle
@@ -21,12 +25,15 @@ import com.monta.cozy.ui.message.detail.MessageDetailFragment
 import com.monta.cozy.ui.post_room.PostRoomFragment
 import com.monta.cozy.ui.room_detail.RoomDetailFragment
 import com.monta.cozy.ui.search.SearchFragment
+import com.monta.cozy.utils.consts.CONVERSATION_COLLECTION
+import com.monta.cozy.utils.consts.MESSAGE_COLLETION
 import com.monta.cozy.utils.consts.TRANSLATE_TO_BOTTOM
 import com.monta.cozy.utils.extensions.animateGone
 import com.monta.cozy.utils.extensions.animateVisible
 import com.monta.cozy.utils.extensions.enableFullScreen
 import com.monta.cozy.utils.extensions.startActivity
 import kotlinx.coroutines.flow.onEach
+import timber.log.Timber
 
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -57,6 +64,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private var previousNavSelectedId: Int = 0
 
     var isFullScreen = true
+    var listener: ListenerRegistration? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Cozy)
@@ -64,6 +72,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         registerNetworkCallback()
         enableFullScreen(true)
     }
+
+    var badgeDrawable : BadgeDrawable? = null
 
     override fun setupView() {
         super.setupView()
@@ -85,6 +95,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         shoudNavigate = true
                     }
                     R.id.inbox -> {
+                        badgeDrawable?.isVisible = false
+                        badgeDrawable?.clearNumber()
                         shoudNavigate = if (viewModel.isSignedIn()) {
                             addFragment(
                                 R.id.nav_host_fragment,
@@ -132,7 +144,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
         }
         binding.bottomNav.selectedItemId = R.id.explore
+
+        var badge = binding.bottomNav.getOrCreateBadge(R.id.inbox)
+        badgeDrawable = binding.bottomNav.getBadge(R.id.inbox)
+        if (badgeDrawable != null) {
+            badgeDrawable?.isVisible = false
+            badgeDrawable?.clearNumber()
+        }
     }
+
 
     override fun bindData() {
         super.bindData()
@@ -151,6 +171,31 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 }
             }
             .observeInLifecycle(this)
+
+        viewModel.user.observe(this) {
+            if(it != null) {
+                listener?.remove()
+                listener = Firebase.firestore.collection(MESSAGE_COLLETION)
+                    .document(it.id)
+                    .collection(CONVERSATION_COLLECTION)
+                    .whereEqualTo("isRead", false)
+                    .addSnapshotListener { documents, error ->
+                        Timber.e("triggerd")
+                        if(error != null) {
+                            Timber.e(error)
+                            return@addSnapshotListener
+                        }
+
+                        if(documents == null || documents.isEmpty) {
+                            badgeDrawable?.isVisible = false
+                            badgeDrawable?.clearNumber()
+                        } else {
+                            badgeDrawable?.isVisible = true
+                            badgeDrawable?.number = documents.size()
+                        }
+                    }
+            }
+        }
     }
 
     fun isBottomNavVisible(): Boolean {
@@ -253,6 +298,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onDestroy() {
         super.onDestroy()
+        listener?.remove()
+        listener = null
         unregisterNetworkCallback()
     }
 }

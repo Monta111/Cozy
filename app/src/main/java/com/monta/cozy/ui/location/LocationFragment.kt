@@ -204,60 +204,62 @@ class LocationFragment : SpeechRecognitionFragment<FragmentLocationBinding, Loca
         this.googleMap = map
         prepareLocation()
 
-        viewModel.mapConfig.observe(viewLifecycleOwner) { mapConfig ->
-            googleMap.apply {
-                uiSettings.isCompassEnabled = false
-                setMinZoomPreference(DEFAULT_MAP_MIN_ZOOM_VALUE)
-                setMaxZoomPreference(DEFAULT_MAP_MAX_ZOOM_VALUE)
-                moveCamera(
-                    CameraUpdateFactory.newCameraPosition(
-                        CameraPosition.Builder()
-                            .target(LatLng(mapConfig.latitude, mapConfig.longitude))
-                            .zoom(mapConfig.currentZoom)
-                            .build()
+        lifecycleScope.launchWhenStarted {
+            viewModel.mapConfig.observe(viewLifecycleOwner) { mapConfig ->
+                googleMap.apply {
+                    uiSettings.isCompassEnabled = false
+                    setMinZoomPreference(DEFAULT_MAP_MIN_ZOOM_VALUE)
+                    setMaxZoomPreference(DEFAULT_MAP_MAX_ZOOM_VALUE)
+                    moveCamera(
+                        CameraUpdateFactory.newCameraPosition(
+                            CameraPosition.Builder()
+                                .target(LatLng(mapConfig.latitude, mapConfig.longitude))
+                                .zoom(mapConfig.currentZoom)
+                                .build()
+                        )
                     )
-                )
-                setOnCameraIdleListener {
-                    if (!isDisplaySearchResult) {
-                        binding.tvSearchArea.animateVisible()
+                    setOnCameraIdleListener {
+                        if (!isDisplaySearchResult) {
+                            binding.tvSearchArea.animateVisible()
+                        }
+                        viewModel.saveMapConfig(
+                            cameraPosition.target.latitude,
+                            cameraPosition.target.longitude,
+                            cameraPosition.zoom
+                        )
                     }
-                    viewModel.saveMapConfig(
-                        cameraPosition.target.latitude,
-                        cameraPosition.target.longitude,
-                        cameraPosition.zoom
-                    )
+                    setOnMarkerClickListener { true }
                 }
-                setOnMarkerClickListener { true }
             }
-        }
 
-        viewModel.roomNearbyList.observe(viewLifecycleOwner) { roomList ->
-            if (roomList != null) {
-                onDisplaySearchRoomResult()
-                roomList.forEach { room ->
-                    googleMap.addMarker(
-                        MarkerOptions()
-                            .position(LatLng(room.lat, room.lng))
-                            .title(room.name)
-                    )?.also { roomMarkerMap[room] = it }
-                }
+            viewModel.roomNearbyList.observe(viewLifecycleOwner) { roomList ->
+                if (roomList != null) {
+                    onDisplaySearchRoomResult()
+                    roomList.forEach { room ->
+                        googleMap.addMarker(
+                            MarkerOptions()
+                                .position(LatLng(room.lat, room.lng))
+                                .title(room.name)
+                        )?.also { roomMarkerMap[room] = it }
+                    }
 
-                viewModel.centerLatLng?.let {
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLng(it))
-                    googleMap.addMarker(
-                        MarkerOptions()
-                            .position(it)
-                            .title(getString(R.string.center_location))
-                            .icon(
-                                BitmapDescriptorFactory.fromAsset(
-                                    MARKER_CENTER_LOCATION_ASSET_NAME
+                    viewModel.centerLatLng?.let {
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLng(it))
+                        googleMap.addMarker(
+                            MarkerOptions()
+                                .position(it)
+                                .title(getString(R.string.center_location))
+                                .icon(
+                                    BitmapDescriptorFactory.fromAsset(
+                                        MARKER_CENTER_LOCATION_ASSET_NAME
+                                    )
                                 )
-                            )
-                    )?.showInfoWindow()
-                }
+                        )?.showInfoWindow()
+                    }
 
-                binding.rcvRoom.visible()
-                roomAdapter?.submitList(roomList)
+                    binding.rcvRoom.visible()
+                    roomAdapter?.submitList(roomList)
+                }
             }
         }
     }

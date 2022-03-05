@@ -21,7 +21,6 @@ import javax.inject.Inject
 class MessageRepositoryImpl @Inject constructor(private val firestore: FirebaseFirestore) :
     MessageRepository {
 
-    @ExperimentalCoroutinesApi
     override fun getMessageList(
         endTimeMillis: Long,
         ownerId: String,
@@ -58,7 +57,6 @@ class MessageRepositoryImpl @Inject constructor(private val firestore: FirebaseF
         }
     }
 
-    @ExperimentalCoroutinesApi
     override fun listenForNewestMessage(
         startTimeMillis: Long,
         ownerId: String,
@@ -95,7 +93,6 @@ class MessageRepositoryImpl @Inject constructor(private val firestore: FirebaseF
         }
     }
 
-    @ExperimentalCoroutinesApi
     override fun sendMessage(message: Message): Flow<Boolean> {
         return callbackFlow {
             addConversation(
@@ -210,7 +207,6 @@ class MessageRepositoryImpl @Inject constructor(private val firestore: FirebaseF
             }
     }
 
-    @ExperimentalCoroutinesApi
     override fun getConversationList(ownerId: String): Flow<List<Conversation>> {
         return callbackFlow {
             val listener = firestore.collection(MESSAGE_COLLETION)
@@ -240,7 +236,6 @@ class MessageRepositoryImpl @Inject constructor(private val firestore: FirebaseF
         }
     }
 
-    @ExperimentalCoroutinesApi
     override fun setReadConversation(ownerId: String, partnerId: String): Flow<Boolean> {
         return callbackFlow {
             firestore.collection(MESSAGE_COLLETION)

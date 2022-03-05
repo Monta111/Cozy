@@ -29,7 +29,6 @@ class RoomRepositoryImpl @Inject constructor(
 ) :
     RoomRepository {
 
-    @ExperimentalCoroutinesApi
     override fun postRoom(imageUriList: List<String>, room: Room): Flow<Boolean> {
         return callbackFlow {
             val roomDocumentId = UUID.randomUUID().toString().also { room.id = it }
@@ -106,7 +105,6 @@ class RoomRepositoryImpl @Inject constructor(
         }
     }
 
-    @ExperimentalCoroutinesApi
     override fun searchNearbyRoom(
         query: Map<String, String>,
         bounds: LatLngBounds
@@ -181,7 +179,6 @@ class RoomRepositoryImpl @Inject constructor(
         }
     }
 
-    @ExperimentalCoroutinesApi
     override fun fetchRoom(roomId: String): Flow<Room> {
         return callbackFlow {
             firestore.collection(ROOM_COLLECTION).document(roomId)
@@ -226,7 +223,6 @@ class RoomRepositoryImpl @Inject constructor(
         return result
     }
 
-    @ExperimentalCoroutinesApi
     override fun ratingRoom(rating: Rating): Flow<Boolean> {
         return callbackFlow {
             firestore.collection("reviews")
@@ -277,7 +273,6 @@ class RoomRepositoryImpl @Inject constructor(
         }
     }
 
-    @ExperimentalCoroutinesApi
     override fun getRatingList(roomId: String): Flow<List<Rating>> {
         return callbackFlow {
             val listener = Firebase.firestore.collection("reviews")
@@ -307,7 +302,6 @@ class RoomRepositoryImpl @Inject constructor(
         }
     }
 
-    @ExperimentalCoroutinesApi
     override fun getUploadRoom(userId: String): Flow<List<Room>> {
         return callbackFlow {
             val listener = firestore.collection(ROOM_COLLECTION)

@@ -25,7 +25,6 @@ class UserRepositoryImpl @Inject constructor(
     private val emailValidationApi: EmailValidationApi
 ) : UserRepository {
 
-    @ExperimentalCoroutinesApi
     override fun signUp(user: User, password: String): Flow<Boolean> {
         return callbackFlow {
             auth.createUserWithEmailAndPassword(user.email, password)
@@ -54,7 +53,6 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    @ExperimentalCoroutinesApi
     override fun signIn(email: String, password: String): Flow<Boolean> {
         return callbackFlow {
             auth.signInWithEmailAndPassword(email, password)
@@ -73,7 +71,6 @@ class UserRepositoryImpl @Inject constructor(
         auth.signOut()
     }
 
-    @ExperimentalCoroutinesApi
     override fun validateEmailForSignUp(email: String): Flow<Boolean> {
         return callbackFlow {
             val isValid = validateEmail(email)
@@ -100,7 +97,6 @@ class UserRepositoryImpl @Inject constructor(
             .flowOn(Dispatchers.IO)
     }
 
-    @ExperimentalCoroutinesApi
     override fun validateEmailForSignIn(email: String): Flow<Boolean> {
         return callbackFlow {
             val isValid = validateEmail(email)
@@ -142,7 +138,6 @@ class UserRepositoryImpl @Inject constructor(
         return auth.currentUser != null
     }
 
-    @ExperimentalCoroutinesApi
     override fun fetchUser(): Flow<User> {
         return callbackFlow {
             var listener: ListenerRegistration? = null
@@ -169,7 +164,6 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    @ExperimentalCoroutinesApi
     override fun fetchUser(userId: String): Flow<User> {
         return callbackFlow {
             firestore.collection(USER_COLLECTION).document(userId)
@@ -189,7 +183,6 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    @ExperimentalCoroutinesApi
     override fun updatePhoneNumber(userId: String, phoneNumber: String): Flow<Boolean> {
         return callbackFlow {
             firestore.collection(USER_COLLECTION)

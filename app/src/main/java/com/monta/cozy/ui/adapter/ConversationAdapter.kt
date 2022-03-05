@@ -1,6 +1,8 @@
 package com.monta.cozy.ui.adapter
 
 import android.graphics.Typeface
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.google.firebase.firestore.ktx.firestore

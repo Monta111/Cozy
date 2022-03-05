@@ -123,8 +123,6 @@ class PostRoomFragment : BaseFragment<FragmentPostRoomBinding, PostRoomViewModel
         thumbnailAdapter?.setData(listOf(ADD_IMAGE_ITEM))
     }
 
-    @FlowPreview
-    @ExperimentalCoroutinesApi
     override fun bindData(savedInstanceState: Bundle?) {
         super.bindData(savedInstanceState)
 

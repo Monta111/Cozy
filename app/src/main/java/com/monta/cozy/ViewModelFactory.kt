@@ -10,7 +10,7 @@ class ViewModelFactory @Inject constructor(
 ) :
     ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         val creator = creators[modelClass] ?: creators.entries.firstOrNull {
             modelClass.isAssignableFrom(it.key)
         }?.value ?: throw IllegalArgumentException("Unknown ViewModel Class")
@@ -22,4 +22,6 @@ class ViewModelFactory @Inject constructor(
             throw RuntimeException(e)
         }
     }
+
+
 }

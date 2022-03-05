@@ -58,8 +58,6 @@ class SearchFragment : SpeechRecognitionFragment<FragmentSearchBinding, SearchVi
         }
     }
 
-    @ExperimentalCoroutinesApi
-    @FlowPreview
     override fun bindData(savedInstanceState: Bundle?) {
         super.bindData(savedInstanceState)
 
